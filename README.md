@@ -13,8 +13,9 @@ ___
 
 *It's running HTTPS/SPDY, so the SSL Cert files are omitted. Remember -- you can generate your own with [Certbot / Let's Encrypt](https://certbot.eff.org/)!
 
+
 ## Neat. Time to get it Up-And-Running. How?
-Grab your favorite Terminal/Console, then
+Grab your favorite Terminal/Console, install Node.JS/NPM, then
 clone into this Repository from the location of your choice.
 ```
 git clone https://github.com/Itimoto/Potato.Irish-Server
@@ -44,6 +45,33 @@ Finally, run the magic words:
 ```
 node server.js
 ```
+And you're golden!
+
+
+## But what about '\_pi-specific'?
+That's for the Roomba Roamer. There will be more information available on the Project Page soon, but if you'd like to stream Video, here're some basic instructions:
+
+First, you'll need a Raspberry Pi (of *course*) with Internet Access, Node.JS installed, and a *Camera Module*.
+
+Navigate over to your Pi's terminal (via SSH or... whichever you prefer.). Then, go ahead and copy over the \_pi-specific file:
+```
+wget https://raw.githubusercontent.com/Itimoto/Potato.Irish-Server/master/_pi-specific/roomba-pi.js
+mkdir lib
+cd lib
+wget https://raw.githubusercontent.com/Itimoto/Potato.Irish-Server/master/_pi-specific/lib/leakyBuffer.js
+wget https://raw.githubusercontent.com/Itimoto/Potato.Irish-Server/master/_pi-specific/lib/roomba-opcodes.js
+```
+*(Yes, there are better methods of downloading. Submodules are an option. However, I screwed up this repository along the way.*
+
+Navigate back to `roomba-pi.js`, then:
+```
+npm install
+```
+Finally, say the magic words once more:
+```
+node roomba-pi.js
+```
+And you're silver.
 
 
 ## Credit Where Credit Is Due.
