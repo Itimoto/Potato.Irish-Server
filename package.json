@@ -1,0 +1,15 @@
+{
+  "name": "famine-potato-irish",
+  "version": "1.0.0",
+  "description": "The culmination of a Summer's worth of exploring Networking and Node.js. Currently running Pong and the Roomba Roamer",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Dimitry M",
+  "license": "ISC"
+}
