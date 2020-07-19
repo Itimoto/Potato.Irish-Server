@@ -1,0 +1,301 @@
+<html lang="en">
+  <head>
+    <title>Roomba Roamer!</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Control a Roomba over the Internet! Built with NodeJS, an Old Raspberry Pi, and a Teardrop of Sweat.">
+
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+    <link rel="icon" type="image/png" href="./rr_moon.png" sizes="32x32">
+  </head>
+  <body>
+
+    
+
+    <div class="center-feed-container" width=100% height=100%>
+      
+      <canvas id="joystick" width=100vw height=100vh></canvas>
+      <canvas id="h264-Window"></canvas>
+    </div>
+
+    <div class="side-column" style="left: 0">
+      <div class="header-square">
+        Roomba <br>
+        Roamer
+      </div>      
+    </div>
+
+    <div class="side-column" style="right: 0">
+      <div class="side-callout" id="status-indic" style="right: 0">
+
+        You're <br> up!
+
+      </div>
+
+    </div>
+
+    <!-- Provide Clientside Scripts-->
+    <script type="text/javascript">
+
+    
+    var mainCanvas = document.getElementById("h264-Window");
+    mainCanvas.width = window.innerWidth;   // We resize it in here b/c resizing w/ CSS results in some nasty blur on the Canvas (when using it to draw rects, etc.)
+    mainCanvas.height = window.innerHeight;
+    
+    /////NOTE: Need to stick listeners in here to keep stream from lagging out
+
+    document.addEventListener("keydown", sendCommand);
+    document.addEventListener("keyup", endCommand);
+
+    let notPressed = {
+        W : true,
+        S : true,
+        A : true,
+        D : true,
+    };
+
+    function sendCommand(e) {
+          if(e.code == "KeyW" && notPressed.W){
+            notPressed.W = false;
+            pongGame.changePlayerVel("player1", "UP");
+          }
+          if(e.code == "KeyS" && notPressed.S){
+            notPressed.S = false;
+            pongGame.changePlayerVel("player1", "DOWN");
+          }
+          if(e.code == "KeyA" && notPressed.A){
+            notPressed.A = false;
+          }
+          if(e.code == "KeyD" && notPressed.D){
+            notPressed.D = false;
+          }
+
+          if(e.code == "ArrowUp")
+            pongGame.changePlayerVel("player2", "UP");
+            
+          if(e.code == "ArrowDown")
+            pongGame.changePlayerVel("player2", "DOWN");
+        }
+
+        function endCommand(e) {          
+          if(e.code == "KeyW" || e.code == "KeyS"){
+            (e.code == "KeyW") ? notPressed.W = true : notPressed.S = true;
+            pongGame.changePlayerVel("player1", "STOP");
+          }
+          else if(e.code == "KeyA"){
+            notPressed.A = true;
+          }
+          else if (e.code == "KeyD"){
+            notPressed.D = true;
+          }
+            
+          if(e.code == "ArrowUp" || e.code == "ArrowDown")
+            pongGame.changePlayerVel("player2", "STOP");
+        }
+
+//----------------------------------------------------------------------------------------------
+    class PongGame {
+        constructor(canvas){
+          this.canvas = canvas;
+          this.gameCanvas = canvas.getContext("2d");
+          this.gameCanvas.imageSmoothingEnabled = false;
+
+          this.PLAYERVELOCITY = 2;
+
+          this.ball = { 
+            x : canvas.width / 2, 
+            y : canvas.height / 2,
+            radius  : canvas.height / 50, 
+
+            xVel  : 1 - (2*Math.round(Math.random())),  //-2 to 2, inclusive (Take a random number between 0-1, subtract if 1, do nothing if 0) (to determine dir)
+            yVel  : 0,
+          };
+          this.leftGoal = {
+            x: 0,
+              y: 0,
+            width : canvas.height / 20,
+            height: canvas.height,
+            color : "green",
+          }
+          this.rightGoal = {
+            x: canvas.width - this.leftGoal.width,
+              y: 0,
+            width : this.leftGoal.width,
+            height: this.leftGoal.height,
+            color : this.leftGoal.color,
+          }
+
+          this.player1 = {
+            x: 0 + this.leftGoal.width + canvas.height/20, 
+              y: 0 + (this.canvas.height/2 - canvas.height/6),  // Halfway down, offset to middle of the paddle
+            width : canvas.height / 30, 
+            height: canvas.height / 3,
+            color : "white",
+
+            vel : 0,
+            pts : 0,
+          }
+          this.player2 = {
+            x: (canvas.width - this.player1.width) - this.rightGoal.width - this.player1.width, // Offset by current width from border, offset from goal, offset from goal by own width
+              y: 0 + (this.canvas.height/2 - this.player1.height/2),
+            width : this.player1.width, 
+            height: this.player1.height,
+            color : "white",
+
+            vel : this.player1.vel,
+            pts : this.player1.pts,
+          }
+
+          this.update           = this.update.bind(this);
+          this.checkCollision   = this.checkCollision.bind(this);
+          this.scoreGoal        = this.scoreGoal.bind(this);
+          this.changePlayerVel  = this.changePlayerVel.bind(this);
+          this.draw             = this.draw.bind(this);
+
+          this.update();
+        }
+
+        update(){
+          this.player1.y += this.player1.vel;
+          this.player2.y += this.player2.vel;
+          this.ball.x += this.ball.xVel;
+          this.ball.y += this.ball.yVel;
+
+          this.checkCollision(this.ball, this.player1, this.paddleCollided);
+          this.checkCollision(this.ball, this.player2, this.paddleCollided);
+          this.checkCollision(this.ball, {x:0, y:0, width:this.canvas.width, height:10}, this.wallCollided);
+          this.checkCollision(this.ball, {x:0, y:this.canvas.height, width:this.canvas.width, height:100}, this.wallCollided);
+          this.checkCollision(this.ball, this.leftGoal, this.scoreGoal);
+          this.checkCollision(this.ball, this.rightGoal, this.scoreGoal);
+
+          window.requestAnimationFrame(this.draw);
+          this.clock = setTimeout(this.update);  // Expose the Clock and recurse
+        }
+
+        checkCollision(ballObj, rectObj, onCollision){
+          // sqrt( (x1 - x2)^2 + (y1 - y2) ^2) for distance formula
+          let rectBounds = [rectObj.x, rectObj.x + rectObj.width, rectObj.y, rectObj.y + rectObj.height]; // Left, Right, Top, Bottom
+
+          if(ballObj.y >= rectBounds[2] && ballObj.y <= rectBounds[3]){
+            if(Math.abs(ballObj.x - rectBounds[1]) <= ballObj.radius || Math.abs(ballObj.x - rectBounds[0]) <= ballObj.radius){  // Right-Side Collision
+              onCollision(ballObj, rectObj);
+            }
+            else if (Math.abs(ballObj.x - rectBounds[0]) <= rectObj.width && Math.abs(ballObj.x - rectBounds[1]) <= rectObj.width){
+              onCollision(ballObj, rectObj);
+            }
+          } 
+        }
+
+        paddleCollided(ballObj, rectObj){
+          ballObj.xVel *= -1.05;
+          ballObj.yVel += (Math.round(rectObj.vel/4 *Math.random()) + (rectObj.vel/2));
+          console.log(ballObj);
+        }
+
+        wallCollided(ballObj, rectObj){
+          ballObj.yVel *= -1;
+          console.log(ballObj);
+        }
+
+        scoreGoal(ballObj, rectObj){
+          //console.log("ggggoooooOOOOOOOOAAAALLLLLLLLLL");
+          if(ballObj.x < 100){    // Hacky way of determining who the point goes to
+            this.player2.pts++;
+          } else {
+            this.player1.pts++;
+          }
+
+          ballObj.x = this.canvas.width/2;
+          ballObj.y = this.canvas.height/2;
+          ballObj.xVel = ballObj.yVel = 0;
+
+          if(this.player1.pts >= 1 || this.player2.pts >= 1){
+            setTimeout(() => {
+              this.player1.y = this.canvas.height/2 - this.player1.height/2;
+              this.player2.y = this.player1.y;
+              this.player1.pts = this.player2.pts = 0;
+              ballObj.xVel = 1 - (2*Math.round(Math.random()));
+            }, 2000);
+          } else {
+            setTimeout(() => {
+              ballObj.xVel = 1 - (2*Math.round(Math.random()));
+            }, 700);
+          }
+        }
+
+        changePlayerVel(playerID, direction){
+          let newVel = 0;
+          if(direction == "UP")
+            newVel = -1*this.PLAYERVELOCITY;
+        
+          if(direction == "DOWN")
+            newVel = this.PLAYERVELOCITY;
+
+          if(playerID == "player1"){
+            this.player1.vel = newVel;
+          }
+          else if(playerID == "player2"){
+            this.player2.vel = newVel;
+          }
+        }
+
+        draw(){
+          // Background
+          this.gameCanvas.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          this.gameCanvas.fillStyle = "black";
+          this.gameCanvas.fillRect(0, 0, this.canvas.width, this.canvas.height);
+          this.drawScore(this.player1.pts, this.player2.pts, this.canvas.width/2, this.canvas.height/6, this.gameCanvas);
+
+          // Edges/Boundaries
+          this.drawRectObj(this.leftGoal, this.gameCanvas);
+          this.drawRectObj(this.rightGoal, this.gameCanvas);
+
+          // Game Objects
+          this.drawBall(this.ball, this.gameCanvas);
+          
+          this.drawRectObj(this.player1, this.gameCanvas);
+          this.drawRectObj(this.player2, this.gameCanvas);
+        }
+
+        drawScore(p1Score, p2Score, xPos, yPos, canvas){
+          canvas.fillStyle = "white";
+          canvas.font = "40px 'Press Start 2P'";
+          canvas.fillText(p1Score, xPos - 60, yPos);
+          canvas.fillText(p2Score, xPos + 25, yPos);
+          canvas.fillRect(xPos, 0, 2, 1000);
+          
+          if(p1Score >= 1){
+            canvas.fillText("P1 Wins!", xPos - 110, yPos*3);
+          }
+          if(p2Score >= 1){
+            canvas.fillText("P2 Wins!", xPos - 110, yPos*3)
+          }
+        }
+
+        drawBall(ball, canvas){
+          let xPos = ball.x;
+          let yPos = ball.y;
+          let radius = ball.radius;
+
+          canvas.beginPath();
+          canvas.arc(xPos, yPos, radius, 0, 2*Math.PI);
+          canvas.fillStyle = "white";
+          canvas.fill();
+        }
+
+        drawRectObj(gameObj, canvas){
+          canvas.fillStyle = gameObj.color;
+          canvas.fillRect(gameObj.x, gameObj.y, gameObj.width, gameObj.height);
+        }
+      }
+
+    var pongGame = new PongGame(mainCanvas);  // canvas was defined earlier as the h264-window canvas
+
+
+</script>
+  </body>
+</html>

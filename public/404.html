@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>invalid potato</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Error 404: Potato Not Found. How's a Tomato instead?">
+
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+    <link rel="icon" type="image/png" href="./images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>    
+    <div class="center-feed-container">
+      <!-- Background + p o t a t o -->
+      <!-- Also: Removed CSS Resizing due to Load Times; We might as well try to keep our 404 as snappy as possible -->
+      <img class="bg-item" id="stars-img" src="./images/webp/stars.webp"> 
+
+      <button class="button-potato" style="top: 10%; opacity: 1; min-width: 100%; min-height: 20vh; line-height: 8vh;">
+        ERROR: 404 <br>
+        <small> Potato Not Found </small>
+      </button>
+      
+      <img class="fg-item" id="tomato-img" src="./images/webp/tomato.webp" style="top: 38%">
+
+      <!-- Call To Action Button -->
+      <button class="button-potato" style="bottom: 10%">go back?</button>
+    </div>
+
+
+
+    <script type="text/javascript">
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+      window.onload = () => {
+        applyToAllChildren(document.body, (elem) => {
+          elem.style.transition = "all 1s";
+          elem.style.opacity = 1;
+        });
+
+        let container    = document.getElementsByClassName('center-feed-container')[0];
+        let img_tomato   = document.getElementsByClassName('fg-item')[0];
+        let img_stars    = document.getElementsByClassName('bg-item')[0];
+
+        // Gonna store this for readibility
+        img_tomato.defWIDTH = parseInt(window.getComputedStyle(img_tomato).getPropertyValue('width'));
+        let orientation = (window.innerWidth > window.innerHeight) ? 'landscape' : 'portrait';
+
+        let btn_cta = document.getElementsByClassName('button-potato')[1];
+        
+        // Nice fade-in button
+        btn_cta.style.opacity = 0;
+        setTimeout( () => {
+          btn_cta.style.opacity = 1;
+        }, 300);
+
+        // Setup Preview Menu
+        btn_cta.onclick = btn_cta.onmouseover = hideStars;
+
+        function hideStars(){
+          btn_cta.style.opacity = 1;
+
+          //btn_cta.innerHTML = " potato";
+          btn_cta.style.background = "#f0edddaa";//"#8d8a7b";
+          btn_cta.style.color = "#2c282b";
+
+          // It's weird. I know. I'm sorry.
+          let newPotatoWidth = img_tomato.defWIDTH * 1.3;
+          img_tomato.style.width = `${newPotatoWidth}px`;
+          img_tomato.style.top = "25%";
+          img_stars.style.opacity = 0;
+
+          //btn_cta.onclick = restoreDefaultState;
+          btn_cta.onclick = () => {
+            applyToAllChildren(document.body, (elem) => {
+              elem.style.transition = "all 0.3s";
+              elem.style.opacity = 0;
+            });
+
+            btn_cta.addEventListener('transitionend', () => {
+              window.history.back();
+            }, {once: true});
+          }
+        }
+
+        /*
+        function restoreDefaultState(){
+          btn_cta.style.opacity = 1;//0.6;
+
+          // Back to default state
+          btn_cta.innerHTML = "got back?";
+          btn_cta.style.background = "transparent";
+          btn_cta.style.color = "#f0eddd";
+
+          img_tomato.style.width = `${img_tomato.defWIDTH}px`;
+          img_stars.style.opacity = 1;
+        
+          btn_cta.onclick = showPreviewMenu;
+        }
+        */
+      }
+
+      //--------- Service Methods --------------
+      function applyToAllChildren(parentElem, callback, index){
+          if(index == undefined){   // Remember, 0 == false
+            index = parentElem.children.length - 1;
+          }
+
+          // Base Case ['parent' w/o children] (or) Endpt [final child]
+          if(index == 0){
+            let currChild = parentElem.children[0];
+            if(currChild.children.length > 0)             // Yes, it's a tad repetitive; however, it won't crash. hopefully.
+              applyToAllChildren(parentElem.children[0], callback);
+
+            callback(parentElem.children[0]);
+
+            return;
+          }
+
+          if(parentElem.children.length > 0){
+            let currChild = parentElem.children[index];
+            if(currChild.children.length > 0){
+              applyToAllChildren(currChild, callback);  // Apply to children's-children
+            }
+            
+            // Either all children's-children Applied-to, or Final Childless-Child:
+            callback(parentElem.children[index]);               // Apply, then traverse
+            applyToAllChildren(parentElem, callback, index - 1);
+            return;
+          }
+        }
+    </script>
+  </body>
+</html>

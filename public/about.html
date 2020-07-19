@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>About | Potato.</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Who am I? Why am I here, just to suffer?">
+  
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./articles/articles.css"/>
+    <link rel="stylesheet" type="text/css" href="./articles/navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="./articles/vs-code-highlighting.css"/>
+
+    <style>
+      /* Specific to our About page */
+      body {
+        background-color: #000000; /* For help w/ the Image */
+      }
+      /* Image Fading */
+      .fade-in-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        z-index: 0;
+
+        margin-top: 40%;
+      }
+      .fade-in-wrapper img {
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        position: relative;
+      }
+      .fade-in-wrapper div {
+        width: 30%;
+        height: 5%;
+
+        z-index: 0;
+
+        position: absolute;
+      }
+      .fade-in-wrapper .side-callout {
+        font-size: 4vw;
+      }
+      .fade-in-wrapper .markdown-body#welcometxt {
+        width: 100%; 
+        top: -25%;
+        position: absolute;
+        background-color: transparent;
+        z-index: 0;
+      }
+      .fade-in-wrapper .markdown-body#about {
+        /* Move down towards the bottom of the screen */
+        width: 100%;
+        height: fit-content;
+        top: 100%;
+        right: 0%;
+
+        background-color: #141314;
+        overflow: auto;
+      }
+
+      /* Phones... */
+      @media (orientation: landscape) {
+        .fade-in-wrapper {margin-top: 10%; }
+        .fade-in-wrapper .markdown-body#welcometxt { top: -5%; }
+      }
+      /* Medium-sized Devices */
+      @media (min-width: 768px) {
+        .fade-in-wrapper {margin-top: 18%;}
+        .fade-in-wrapper .markdown-body#welcometxt { top: -12%; }
+        .fade-in-wrapper .side-callout { font-size: 3vw; }
+      }
+      /* Effectively Desktops */
+      @media (min-width: 992px) {
+        .fade-in-wrapper {
+          margin-top: 0%;
+        }
+        .fade-in-wrapper .markdown-body#welcometxt { top: 0%; } /* Put before Img. on smaller screens */
+        .fade-in-wrapper .side-callout { font-size: 4vw; }
+        .fade-in-wrapper .markdown-body#about {
+          width: 80%;
+          height: 35%;
+          right: 10%;
+          top: 63%;
+        }
+      }
+    </style>
+
+    <link rel="icon" type="image/png" href="./images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/contact', {});">contact</div>
+      </div>
+    </div>
+
+
+
+<div class="fade-in-wrapper"><!-- style="width: 100%; display: flex; align-items: center; justify-content: center;"> -->
+  <img src="./images/webp/about-page.webp" alt="The ghosts of High-School Past." id="clone-img">
+  <div class="markdown-body" id="welcometxt">
+      
+    <h1 class="code-line" data-line-start=1 data-line-end=1 style="text-align: center; font-family: 'Josefin Sans', sans-serif; font-weight: bolder;" ><a id="Roomba_Roamer_1"></a>WELCOME</h1>
+    <h3 class="code-line" data-line-start=0 data-line-end=1 style="text-align: center; font-weight: lighter;" ><a id="welcome_to_the_0"></a>i'm sure you've got plenty of questions. i'm here to answer them</h3>      
+    
+  </div>
+  
+  <div class="side-callout" style="right: 10%; top: 13%;">Look!</div>
+  <div class="side-callout" style="right: -6%; top: 19%; width: 60%;">(in case you were wondering)</div>
+  <div class="side-callout" style="right: 30%; top: 26%">That's me.</div>
+
+  <div class="markdown-body" id="about">
+
+    <h3 class="code-line" data-line-start=3 data-line-end=4 ><a id="Who_am_I_What_am_I_doing_here_3"></a>Who am I? What am I doing here?</h3>
+<blockquote>
+<p class="has-line-data" data-line-start="4" data-line-end="5">I don’t know how you stumbled onto here. But thanks for comin’!</p>
+</blockquote>
+<p class="has-line-data" data-line-start="6" data-line-end="10">My name’s Dimitry. I like doing things. <em>All</em> of the things.<br>
+Sometimes those things are Technical, soaking in hundreds of lines of <code>code</code>. Other days, it’s a bit more Artsy – but, at the end of it all, <em>I just love to <strong>learn</strong></em><br>
+For the longest time, I’ve wanted to share my love of <em>learning</em> and <em>teaching</em> and <em>building</em> and <em>designing</em> and <em>exploring</em>. High School was quite nice for that, but I never quite had an wide-open outlet for it…<br>
+Granted, the closest was my <a href="https://www.youtube.com/channel/UC3q7ldw3KTBcFjTjznhObAw">YouTube</a> channel. But making videos has its fair share of overhead.</p>
+<p class="has-line-data" data-line-start="11" data-line-end="12">That’s what <code>potato.irish</code> is about: it’s an outlet for <em>learning</em> that coincidentally doubles as a portfolio.</p>
+<h3 class="code-line" data-line-start=13 data-line-end=14 ><a id="A_brief_overview_of_Skills_and_Experience_13"></a>A brief overview of Skills and Experience:</h3>
+<ul>
+<li class="has-line-data" data-line-start="14" data-line-end="26">Programming / Development
+<ul>
+<li class="has-line-data" data-line-start="15" data-line-end="18">Web Development
+<ul>
+<li class="has-line-data" data-line-start="16" data-line-end="17">Frontend: Javascript, HTML/CSS, This Site Was Built From Scratch, etc.</li>
+<li class="has-line-data" data-line-start="17" data-line-end="18">Backend: Node JS (currently running + Express JS)</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="18" data-line-end="20">Scripting
+<ul>
+<li class="has-line-data" data-line-start="19" data-line-end="20">Java, C++, C#…</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="20" data-line-end="23">Linux
+<ul>
+<li class="has-line-data" data-line-start="21" data-line-end="22"><code>potato.irish</code> is currently running on a CentOS Server.</li>
+<li class="has-line-data" data-line-start="22" data-line-end="23">The Raspbian running on the <a href="https://famine.potato.irish/rr">Roomba Roamer</a> is also a bit of a moot point.</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="23" data-line-end="25">Basic Electrical-Engineering
+<ul>
+<li class="has-line-data" data-line-start="24" data-line-end="25">Arduino interfacing, <a href="https://famine.potato.irish/rr">Roomba-Hacking</a>, etc.</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="25" data-line-end="26"><a href="https://github.com/itimoto">GitHub available</a></li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="26" data-line-end="31">Media Creation
+<ul>
+<li class="has-line-data" data-line-start="27" data-line-end="29">Photo Editing / Photography
+<ul>
+<li class="has-line-data" data-line-start="28" data-line-end="29">Adobe Photoshop, GIMP…</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="29" data-line-end="31">Video Editing
+<ul>
+<li class="has-line-data" data-line-start="30" data-line-end="31">Adobe Premiere, DaVinci Resolve…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="31" data-line-end="34">Music
+<ul>
+<li class="has-line-data" data-line-start="32" data-line-end="34">Flute / Piccolo Player of 5+ Years</li>
+</ul>
+</li>
+<li class="has-line-data" data-line-start="31" data-line-end="34">Languages
+  <ul>
+  <li class="has-line-data" data-line-start="32" data-line-end="34">Fluent in Russian, Qualified in French</li>
+  </ul>
+  </li>
+</ul>
+<p class="has-line-data" data-line-start="34" data-line-end="35">Currently pursuing Electrical Engineering at the University of Akron.</p>
+
+    <!--
+      <iframe src="./articles/testing.html" style="width: 100%; height: 100%;"></iframe>
+    -->
+  </div>
+</div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="./general.js"></script>
+    <script type="text/javascript">
+
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+   //   window.onload = () => {
+     setTimeout( () => {
+        applyToAllChildren(document.body, (elem) =>{
+          elem.style.transition = "0.3s all";
+          elem.style.opacity = 1;
+        });
+      });
+    //  }
+    </script>
+  </body>
+</html>

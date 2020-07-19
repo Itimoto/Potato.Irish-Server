@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Portfolios | Potato</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Dimitry's Portfolios. Mix of Technical and Nontechnical Projects">
+  
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../articles/articles.css"/>
+    <link rel="stylesheet" type="text/css" href="../articles/navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="../articles/vs-code-highlighting.css"/>
+
+    <style>
+      .article-launcher {
+        width: 100%;
+        height: fit-content;
+        
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+
+        
+        --preview-text: #e7e4df;
+        --preview-bg: #382a1f81;
+        --preview-img: scale(1);
+        --preview-img-filter: blur(0); /* 'Mobile First and Whatnot' */
+      }
+      .portfolio-preview {
+        width: 100%;
+        height: 30em;
+        position: relative;
+
+        overflow: hidden;
+      }
+
+      .portfolio-preview .title-blurb {
+        background-color: var(--preview-bg);
+        color: var(--preview-text);
+
+        position: absolute;
+        top: 40%;
+
+        border: none;
+        z-index: 1;
+      }
+
+      .portfolio-preview .pixels-photo img {
+        background-color: grey;
+
+        min-width: 150%;
+        min-height: 100%;
+
+        object-fit: cover;
+        object-position: -180px -10px;
+        align-self: baseline;
+
+        filter: var(--preview-img-filter);
+        transform: var(--preview-img);
+        z-index: 0;
+      }
+
+      .portfolio-preview:hover {
+        min-height: 20em; /* expand */
+    
+        
+        --preview-bg: #382a1f;
+        --preview-text: #faf1e1;
+        /*
+        --preview-img: scale(1.1);
+        */
+        --preview-img-filter: blur(0);
+
+        cursor: pointer;
+      }
+
+      @media (min-width: 767px){
+        .article-launcher {
+          --preview-img-filter: blur(10px);
+        }
+
+        .portfolio-preview .pixels-photo img {
+          min-width: 110%;
+          
+          object-position: 0px -100px;
+        }
+      }
+
+      @media (min-width: 992px){
+        .portfolio-preview .pixels-photo img {
+          object-position: 0px -50px;
+        }
+      }
+
+      @media (min-width: 1200px){
+        .portfolio-preview .pixels-photo img {
+          min-width: 100%;
+          
+          object-position: 0px -250px;
+        }
+      }
+
+    </style>
+
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/about', {});">about</div>
+      </div>
+    </div>
+
+    <div class="article-launcher">
+      <!-- Basic Layout for each Article
+      <div class="mini-article">
+        <div class="title-blurb">
+          Article #1
+        </div>
+        <div class="description">
+          Lorem ipsum, dolor sit amet.
+        </div>
+      </div>
+      -->
+
+
+      <div class="portfolio-preview" onclick="transitionPage('/portfolio/tech', {});">
+        <div class="title-blurb">
+          Tech.
+        </div>
+        <div class='pixels-photo'>
+          <img class="loading" onload="this.classList.remove('loading');" src='https://raw.github.com/Itimoto/BabyHead/master/misc/SolderingIron.jpg' alt='Soldering Iron'/>
+        </div>
+      </div>
+
+      <div class="portfolio-preview" onclick="transitionPage('/portfolio/photo', {});">
+        <div class="title-blurb">
+          Photo.
+        </div>
+        <div class='pixels-photo'>
+          <img class="loading" onload="this.classList.remove('loading');" src='https://drscdn.500px.org/photo/174439003/m%3D900/v2?sig=8f7d02f5509934b5c20d2789dd0c1c48e5126f6f8b916cf931dd5887ad60fe1e' alt='The Curious Butterfly by Dimitry Melnikov on 500px.com'/>
+        </div>
+      </div>
+
+      <div class="portfolio-preview" onclick="transitionPage('/portfolio/video', {});">
+        <div class="title-blurb">
+          Video.
+        </div>
+        <div class='pixels-photo'>
+          <img class="loading" onload="this.classList.remove('loading');" src='../images/jpg/rube-port-min.jpg' alt='A Knight of Rube Kingdom.'/>
+        </div>
+      </div>
+
+    </div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="text/javascript">
+
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+      window.onload = () => {
+        applyToAllChildren(document.body, (elem) =>{
+          elem.style.transition = "0.3s all";
+          elem.style.opacity = 1;
+        });
+      }
+
+    </script>
+    
+    <!-- 500px Embed Scripts
+    <script type='text/javascript' src='https://500px.com/embed.js'></script> -->
+  </body>
+</html>

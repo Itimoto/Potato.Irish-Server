@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Video | Portfolio</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Technical Portfolio: From the little stuff to the important — It's all a learning opportunity in the end">
+  
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../articles/articles.css"/>
+    <link rel="stylesheet" type="text/css" href="../articles/navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="../articles/vs-code-highlighting.css"/>
+
+    <style>   
+      :root {
+        --max-rowframe-height: 80vh;
+      }
+
+      .portfolio-container {
+        position: relative;
+        display: flex; 
+        flex-direction: wrap; 
+        flex-wrap: wrap; 
+
+        justify-items: stretch;
+        align-content: center;
+       
+        max-width: 1500px;
+        margin: auto;
+        /*
+        margin: 0% 10% 0% 10%;
+        */
+      }
+
+      .portfolio-container .card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        min-height: 600px;
+      }
+      .portfolio-container .card img {
+        flex-grow: 3;
+        width: 100%;
+        min-width: 100%;
+        object-fit: cover;
+
+        order: 0; /* On Mobile: Place the Embeddable Above the Description */
+      }
+      .portfolio-container .card .markdown-body {
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+
+        order: 1;
+        overflow: auto;
+      }
+
+      .pixels-photo img {
+        filter: blur(20px); /* Since the 500px Embed script replaces the original <img> w/ an iFrame, we can use this as a nice */
+      }
+
+      .flex-row iframe {
+        max-height: var(--max-rowframe-height) !important;
+      }
+      .flex-row {
+        position: relative;
+        height: fit-content;
+
+        max-width: 100%;
+      }
+
+      @media (orientation: landscape){
+        .portfolio-container .card {
+          flex-direction: row;
+          max-height: 45vh;
+        }
+        .portfolio-container .card img {                        height: 100%; order: 0; min-width: unset; } /* With order: Defer to original HTML */
+        .portfolio-container .card .markdown-body { width: 40%; height: 100%; order: 0; }
+        
+        .flex-row {
+          display: flex; 
+          flex-direction: row; 
+          height: var(--max-rowframe-height); 
+          width: 100%;
+        }
+
+        :root{
+          --max-rowframe-height: 90vh;
+        }
+      }
+
+      @media (max-width: 767px) and (orientation: landscape) {
+        :root{
+          --max-rowframe-height: 20em;
+        }
+      }
+
+      @media (min-height: 1200px) and (orientation: landscape) {
+        :root{
+          --max-rowframe-height: 50vh;
+        }
+      }
+
+    </style>
+
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/about', {});">about</div>
+      </div>
+    </div>
+
+    <div class="portfolio-container">
+      <!-- Basic Layout for each Article
+      
+        <div class='pixels-photo'>
+          <img class="loading" onload="this.classList.remove('loading');" src='https://raw.github.com/Itimoto/BabyHead/master/misc/SolderingIron.jpg' alt='Soldering Iron'/>
+        </div>
+
+      -->
+      <div class="card">
+        <img src="../images/jpg/rr-display-med.jpg" alt="The Roomba-Roamer: An External View" onclick="transitionPage('/rr', {});" style="max-width: 60%;"/>
+        
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="The_Roomba_Roamer_0"></a>The Roomba Roamer</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="4">It’s what started this website, it’s what started Pong, and it’s what happily constituted the vast majority of my summer.<br>
+          The Roamer is nothing more than a Roomba hooked up to <code>potato.irish</code>, giving users the ability to control a tiny robot in my home.<br>
+          To be sure, the idea’s not original. My exact implementation, however, might be. But the point remains that I didn’t just build it for <em>myself</em> or to <em>learn</em>, but for the chance to interact with friends and family one more time before leaving for College.</p>
+          <h4 class="code-line" data-line-start=4 data-line-end=5 ><a id="Challenges_4"></a>Challenges</h4>
+          <p class="has-line-data" data-line-start="5" data-line-end="6">Oh, dear sweet heavens. So many. I’ll make a list:</p>
+          <ul>
+          <li class="has-line-data" data-line-start="6" data-line-end="10">Debugging in <em>Entirely Unfamiliar Territory</em>
+          <ul>
+          <li class="has-line-data" data-line-start="7" data-line-end="8">I had <em>zero</em> experience with NodeJS, Networking, Streaming, etc.</li>
+          <li class="has-line-data" data-line-start="8" data-line-end="9">I had a <em>faint</em> idea of the Roamer infrastructure, but didn’t know where to start.</li>
+          <li class="has-line-data" data-line-start="9" data-line-end="10">I limited myself to the <a href="https://nodejs.org/en/docs/">Node JS Documentation</a> as often as possible, but certain topics left me looking on the forums</li>
+          </ul>
+          </li>
+          <li class="has-line-data" data-line-start="10" data-line-end="12">Interfacing with the Roomba
+          <ul>
+          <li class="has-line-data" data-line-start="11" data-line-end="12">Thankfully, there’s a helpful <a href="https://www.irobot.lv/uploaded_files/File/iRobot_Roomba_500_Open_Interface_Spec.pdf">guide</a> for Opcodes and interfacing</li>
+          </ul>
+          </li>
+          <li class="has-line-data" data-line-start="12" data-line-end="16">Streaming Low-Latency Video from a remote location
+          <ul>
+          <li class="has-line-data" data-line-start="13" data-line-end="14">This… this took by <em>far</em> the most time to implement and refine.</li>
+          <li class="has-line-data" data-line-start="14" data-line-end="15">I ended up using <a href="https://github.com/131/h264-live-player">131’s H264-Live-Player</a> implementation for streaming</li>
+          <li class="has-line-data" data-line-start="15" data-line-end="16">Then, issues arose with multiple-viewers – the h264 format only sent Initializing Metadata at the beginning of the stream</li>
+          </ul>
+          </li>
+          <li class="has-line-data" data-line-start="16" data-line-end="20">Optimizing for Low-Latency Communication
+          <ul>
+          <li class="has-line-data" data-line-start="17" data-line-end="18">Backpressuring in Streams</li>
+          <li class="has-line-data" data-line-start="18" data-line-end="19">Managing Memory Leaks (including those in external NPM Modules)</li>
+          <li class="has-line-data" data-line-start="19" data-line-end="20">The multi-week debugging session against Latency-increases over time haunts me to this day</li>
+          </ul>
+          </li>
+          <li class="has-line-data" data-line-start="20" data-line-end="22">Working with Asynchronous Operations
+          <ul>
+          <li class="has-line-data" data-line-start="21" data-line-end="22">Concepts like <code>Promises</code> or <code>Async/Await</code> or other aspects of working with the JS Event Loop were foreign, but required for handling linked Communication and Streaming</li>
+          </ul>
+          </li>
+          <li class="has-line-data" data-line-start="22" data-line-end="26">Improving Project Reach / SEO (‘Search Engine Optimization’)
+          <ul>
+          <li class="has-line-data" data-line-start="23" data-line-end="24">Migrating the Node Server to HTTPS/SPDY with <a href="https://letsencrypt.org/">Let’s Encrypt</a></li>
+          <li class="has-line-data" data-line-start="24" data-line-end="26">Developing Cross-Platform UI and Support
+          <ul>
+          <li class="has-line-data" data-line-start="25" data-line-end="26">‘Mobile First’ Approaches</li>
+          </ul>
+          </li>
+          </ul>
+          </li>
+          <li class="has-line-data" data-line-start="26" data-line-end="27">And more. I'll put up a blogpost soon on the process of bringing the Roamer to fruition.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="Pong_0"></a>Pong</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="3">Originally written as an extension of the Roomba Roamer, the standalone-game is a semi-featured Online Multiplayer game of Pong.<br>
+          I figured I’d make the game a bit more… modular. I wrote it almost like a Package, but not <em>quite</em>. It’s still fairly simple to implement into other projects, and, well, fairly fun, no?</p>
+          <h4 class="code-line" data-line-start=3 data-line-end=4 ><a id="Challenges_3"></a>Challenges</h4>
+          <p class="has-line-data" data-line-start="4" data-line-end="9">The web-infrastructure was the easy part – I already had a server, websockets, etc. set up from the Roomba Roamer. All that was really left was to <em>build</em> it. And… well…<br>
+          <em>Latency</em> was the primary issue. Or, really, the fact that the Net’s pretty inconsistent. That’s were Frame-Interpolation came in play, smoothing everything out, as well as streamlining server-sent Game Updates.<br>
+          Other issues included:<br>
+          – Cross-Platform Support. Pong’s able to adapt to different screens, allowing windows with more narrow aspect ratios to play fairly-normally with the wide, and Phones with Desktops.<br>
+          – Modular Infrastructure</p>
+        </div>
+
+        <img src="../images/png/pong-prev-min.png" alt="The Pong Game's Waiting Page" onclick="transitionPage('/pong', {});" style="max-width: 60%;"/>
+      </div>
+
+      <div class="card">
+        <img src="../images/jpg/potato-landing.jpg" alt="Potato.Irish's Landing Page!" onclick="transitionPage('/', {});" style="max-width: 60%;"/>
+
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="FaminePotatoIrish_0"></a>Famine.Potato.Irish</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="3">It’s the site you’re on right now! Wow! So Neat!<br>
+          Truthfully, the site wasn’t exactly… meant to be much more than the Potato Launcher – y’know, with <code>Pongtato</code>, <code>Robotato</code>, <code>???tato</code>, etc. But it came to solve a couple of long-standing goals of mine:</p>
+          <ol>
+          <li class="has-line-data" data-line-start="3" data-line-end="4">To design a full, responsive website,</li>
+          <li class="has-line-data" data-line-start="4" data-line-end="5">To feature a portfolio, and</li>
+          <li class="has-line-data" data-line-start="5" data-line-end="6">To have an outlet for my projects. A blog, really.</li>
+          </ol>
+          <h4 class="code-line" data-line-start=6 data-line-end=7 ><a id="Challenges_6"></a>Challenges</h4>
+          <p class="has-line-data" data-line-start="7" data-line-end="10">I didn’t know much HTML. Or CSS. Or browser-based Javascript. Boy, was <em>that</em> a major hurdle. On top of that, utilizing ‘mobile-first’ philosophies – with smaller images, smaller loading times, and attempts to keep the site as speedy as possible – played the most significant role.<br>
+          The same thing goes for the ‘Articles’ page, which is my first ‘web scraper’. But not quite. Sort-of.<br>
+          But I did build the site from scratch, unlike prior tries. Sure, there <em>was</em> some script-kiddie-ing involved, but only for learning purposes.</p>
+        </div>        
+      </div>
+
+      <div class="card">
+        <div class="markdown-body" style="z-index: 2;">
+        <h3 class="code-line" data-line-start=12 data-line-end=13 ><a id="BabyHead__A_HeadTracking_Camera_System_12"></a>BabyHead – A Head-Tracking Camera System</h3>
+<p class="has-line-data" data-line-start="13" data-line-end="14">I built BabyHead, initially, as a proof-of-concept for a fully-featured body-tracking system. It instead found a home in our Design Team’s <a href="https://youtu.be/HvlKbuyJFp8?t=387">Rube Goldberg Machine</a></p>
+<h4 class="code-line" data-line-start=14 data-line-end=15 ><a id="Challenges_14"></a>Challenges</h4>
+<p class="has-line-data" data-line-start="15" data-line-end="17">For one, there was the name – a name by which I will <em>forever</em> stand. On the other hand, interfacing with a Gyroscope, using the <em>correct</em> output to derive a method mapping it to the proper Euler Angles, and configuring communication was… well, a learning process.<br>
+But a remarkably fun one at that.</p>
+<p class="has-line-data" data-line-start="18" data-line-end="20">BabyHead will forever hold a special place in my heart.<br>
+Code available <a href="https://github.com/Itimoto/BabyHead">on Github</a>, Explanation available on <a href="https://www.youtube.com/watch?v=eJpo-IbOa_U">YouTube</a></p>
+        </div>
+
+        <img src="https://raw.github.com/Itimoto/BabyHead/master/misc/Camera.jpg" alt="BabyHead's Camera, mounted on a set of servos" onclick="transitionPage('/pong', {});" style="max-width: 60%;"/>
+      </div>
+    </div>
+
+    <div class="markdown-body" style="z-index: 2; text-align: center;">
+      <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="Honorable_Mentions_0"></a>Honorable Mentions</h3>
+      <p class="has-line-data" data-line-start="1" data-line-end="5"><code>Binary-Decimal Manipulator</code><br>
+      – A basic Calculator script that adds/subtracts numbers through a simulated Adder/Subtractor Circuit based on combinational logic<br>
+      – (i.e. A roundabout way to make a Calculator Calculate. It was my very first semi-serious scripting endeavor)<br>
+      – Available <a href="https://github.com/Itimoto/Binary-Decimal-Manipulation">here</a></p>
+      <br>
+      <p class="has-line-data" data-line-start="6" data-line-end="10"><code>The Towers of Hanoi</code><br>
+      – A two-pronged attempt to learn <em>recursive problem-solving</em> and <em>Java-graphics processing</em><br>
+      – Really neat story there. Not much space here, however.<br>
+      – Available <a href="https://github.com/Itimoto/Tower-of-Hanoi">here</a></p>
+      <br>
+      <p class="has-line-data" data-line-start="11" data-line-end="15"><code>A Virtual Rubik's Cube</code><br>
+      – Originally built as a predecessor to a planned Rubik’s Cube <em>solver</em>, it remains, on the surface, a simulated Rubik’s Cube.<br>
+      – However, the objective of an <em>algorithm</em> was obscured by the lack of familiarity with Graphics Processing / Data Visualization, proving to be the primary learning point of the project<br>
+      – Available <a href="https://github.com/Itimoto/Virtual-Rubiks-Cube">here</a></p>
+    </div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="text/javascript">
+
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+      //window.onload = () => {
+      setTimeout( () => {
+        applyToAllChildren(document.body, (elem) =>{
+          elem.style.transition = "0.3s all";
+          elem.style.opacity = 1;
+        });
+      }, 500);
+      //}
+
+    </script>
+  </body>
+</html>

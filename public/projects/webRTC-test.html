@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pong!</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0, user-scalable=0,
+              minimum-scale=1.0, maximum-scale=1.0"> <!--Disable autozoom on rotate on iOS-->
+
+    <meta
+      name="description"
+      content="Hop on to play some Multiplayer Pong! Built originally for the Roomba Roamer">
+
+    <link rel="stylesheet" type="text/css" href="../style.css"/>
+    <link rel="stylesheet" type="text/css" href="./styles/pong.css">
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+    <style>
+      body {
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!--
+    <div class="center-feed-container" width=100% height=100%>
+
+      <canvas class="pongCanvas"></canvas>
+
+      <button class="button-pong" id="button-back" style="opacity: 0">...</button>
+
+    </div>
+  -->
+
+  <h1>Realtime communication with WebRTC</h1>
+
+  <video id="localVideo" autoplay playsinline></video>
+  <video id="remoteVideo" autoplay playsinline></video>
+
+  <div>
+    <button id="startButton">Start</button>
+    <button id="callButton">Call</button>
+    <button id="hangupButton">Hang Up</button>
+  </div>
+
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+  <script type="text/javascript">
+    // Adapted from: https://github.com/shanet/WebRTC-Example/blob/master/client/webrtc.js
+
+
+    //-----------------------------------------------
+    // Set up and Connect to Signaling Service
+    let commWS = new WebSocket(`wss://${document.location.hostname}/pong`);
+
+    let pongClient; // null until initialized
+    let requestedPong = false;
+
+    // Connection Entrypoint: 'ReqPong'
+    commWS.addEventListener('open', function (event) {
+      console.log("Socket Connected.");
+
+      if(!requestedPong){
+        requestedPong = true;
+        console.log("Requesting Connection");
+
+        commWS.send("ReqPong");
+      }
+
+      commWS.addEventListener('message', processServerUpdate);
+    });
+
+    window.onbeforeunload = () => {
+      commWS.close();
+    };
+
+    //----------------------------------------------
+    // Connect RTC appropriately
+    var peerConnection, dataChannel;
+    var pcConfig = {
+      iceServers: [
+        {
+          'urls': 'stun:stun.l.google.com:19302'
+        }
+      ],
+    }
+
+    function processServerUpdate(event) {
+      let message = event.data.split(' $ '); //b/c some signalling data can, in fact, have Spaces in there
+      console.log(message);
+
+      if(message[0] != "PG") { return; }
+
+      if(message[1] == "LINKED"){
+        // Server's Found Two Potential Peers
+        let role = parseInt(message[2]); // '0' or '1' -> 'Caller' or 'Answerer'
+        createPeerConnection(role);
+      }
+      else if(message[1] == "RELAY" && message[2] == "JSON"){ // Check if it's Stringified w/o needing a try/catch
+        //console.log("Received Relay Message");
+        let signal = JSON.parse(message[3]);
+        
+        if(signal.sdp){
+          peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp))
+            .then(function() {
+              // Only create Answers in response to Offers
+              if(signal.sdp.type == 'offer'){
+                peerConnection.createAnswer()
+                  .then(createDescription)
+                  .catch(handleError);
+              }
+            });
+        }
+        else if(signal.ice){
+          peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice))
+            .catch(handleError);
+        }
+
+      }
+    }
+
+
+    function createPeerConnection(isCaller){
+      peerConnection = new RTCPeerConnection(pcConfig);
+      peerConnection.onicecandidate = gotIceCandidate;
+
+      if(isCaller){
+        // Caller Side
+        peerConnection.createOffer()
+          .then(createDescription)
+          .catch(handleError);
+
+        // Create a Data Channel, then attach listeners
+        dataChannel = peerConnection.createDataChannel("PongGame");
+        handleDataChannel({role: isCaller});
+
+      } else {
+        // Answerer Side  ; Listen for a Channel
+        peerConnection.ondatachannel = handleDataChannel;
+      }
+    }
+
+    function createDescription(description){
+      // Set Description and Send It to Peer through Server
+      peerConnection.setLocalDescription(description)
+        .then( function() {
+            commWS.send(`JSON $ ${JSON.stringify({
+              sdp: peerConnection.localDescription,
+            })}`);
+        })
+        .catch(handleError);
+    }
+
+    function gotIceCandidate(event){
+      if(event.candidate != null){
+        commWS.send(`JSON $ ${JSON.stringify({
+          ice: event.candidate,
+        })}`);
+      }
+    }
+
+    //// Data Channel Section
+    // Caller -- Host, created dataChannel
+    function handleChannelHost(){
+      dataChannel.onopen = dataChannel.onclose = handleHostChannelChange;
+      dataChannel.onmessage = handleGuestMessage;
+    }
+
+    // Answerer -- Guest, /not/ dataChannel creator
+    function handleChannelGuest(event){
+      dataChannel = event.channel;
+      
+      dataChannel.onopen = dataChannel.onclose = handleGuestChannelChange;
+      
+    }
+
+    function handleDataChannel(event){
+      // If called from event, we're the Answerer. Else, we're the Caller
+      dataChannel = (event) ? event.channel : dataChannel; // Note that we're modifying the Global Reference
+
+      dataChannel.onopen = dataChannel.onclose = handleChannelStatusChange;
+      dataChannel.onmessage = handlePeerMessage;
+    }
+
+    function handleChannelStatusChange(event){
+      let state = dataChannel.readyState;
+
+      if(state === "open"){
+        console.log("Pong Channel Open");
+      } else {
+        console.log("Pong Channel Closed");
+      }
+    }
+
+    function handlePeerMessage(event){
+      console.log(`Received: ${event.data}`);
+    }
+
+    function disconnectPeers(){
+      console.log("Disconnecting Peers");
+
+      dataChannel.close();
+      peerConnection.close();
+
+      dataChannel = peerConnection = null;
+    }
+
+    // Basic 'ol Error Handler
+    function handleError(err){
+      console.err(err);
+    }
+
+    let btn = document.getElementById("startButton");
+    btn.onclick = () => {
+      console.log("Sending Message");
+      dataChannel.send("Yo Bro");
+    }
+
+    setInterval(() => {
+      console.log(`Connection State: ${peerConnection.connectionState}`);
+    }, 1000);
+
+    /*
+    setTimeout( () => {
+      dataChannel.send("YO Bro");
+    }, 3000);
+
+    let btn = document.getElementById("startButton").addEventListener("click", () => {
+      console.log("Sending Message...");
+      dataChannel.send("YO Bro");
+    });
+    */
+  </script>
+
+    <!-- Provide Clientside Scripts-->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="module" src="./scripts/index-pong.js"></script>
+  </body>
+</html>

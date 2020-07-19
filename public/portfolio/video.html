@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Video | Portfolio</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Video Portfolio: Team Projects and Lil' Skits Alike. They're fun, no?">
+  
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../articles/articles.css"/>
+    <link rel="stylesheet" type="text/css" href="../articles/navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="../articles/vs-code-highlighting.css"/>
+
+    <style>
+      /*
+      .article-launcher {
+        width: 100%;
+        height: fit-content;
+        
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+
+        
+        --preview-text: #e7e4df;
+        --preview-bg: #382a1f81;
+        --preview-img: scale(1);
+      }
+      .portfolio-preview {
+        width: 100%;
+        position: relative;
+
+        overflow: hidden;
+      }
+
+      .portfolio-preview .title-blurb {
+        background-color: var(--preview-bg);
+        color: var(--preview-text);
+
+        position: absolute;
+        top: 40%;
+
+        border: none;
+        z-index: 1;
+      }
+
+      /*
+      .portfolio-preview .pixels-photo img {
+        background-color: grey;
+
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover !important;
+
+        transform: var(--preview-img);
+        z-index: 0;
+      }
+      */      
+      :root {
+        --max-rowframe-height: 80vh;
+      }
+
+      .portfolio-container {
+        position: relative;
+        display: flex; 
+        flex-direction: wrap; 
+        flex-wrap: wrap; 
+
+        justify-items: stretch;
+        align-content: center;
+       
+        max-width: 1500px;
+        margin: auto;
+        /*
+        margin: 0% 10% 0% 10%;
+        */
+      }
+
+      .portfolio-container .card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        min-height: 600px;
+      }
+      .portfolio-container .card iframe {
+        flex-grow: 3;
+        width: 100%;
+        height: 100%;
+
+        order: 0; /* On Mobile: Place the Embeddable Above the Description */
+      }
+      .portfolio-container .card .markdown-body {
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+
+        order: 1;
+      }
+
+      .pixels-photo img {
+        filter: blur(20px); /* Since the 500px Embed script replaces the original <img> w/ an iFrame, we can use this as a nice */
+      }
+
+      .flex-row iframe {
+        max-height: var(--max-rowframe-height) !important;
+      }
+      .flex-row {
+        position: relative;
+        height: fit-content;
+
+        max-width: 100%;
+      }
+
+      @media (orientation: landscape){
+        .portfolio-container .card {
+          flex-direction: row;
+        }
+        .portfolio-container .card iframe {         width: 60%; height: 100%; order: 0; } /* With order: Defer to original HTML */
+        .portfolio-container .card .markdown-body { width: 40%; height: 100%; order: 0; }
+        
+        .flex-row {
+          display: flex; 
+          flex-direction: row; 
+          height: var(--max-rowframe-height); 
+          width: 100%;
+        }
+
+        :root{
+          --max-rowframe-height: 90vh;
+        }
+      }
+
+      @media (max-width: 767px) and (orientation: landscape) {
+        :root{
+          --max-rowframe-height: 20em;
+        }
+      }
+
+      @media (min-height: 1200px) and (orientation: landscape) {
+        :root{
+          --max-rowframe-height: 50vh;
+        }
+      }
+
+    </style>
+
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/about', {});">about</div>
+      </div>
+    </div>
+
+    <div class="portfolio-container">
+      <!-- Basic Layout for each Article
+      
+        <div class='pixels-photo'>
+          <img class="loading" onload="this.classList.remove('loading');" src='https://raw.github.com/Itimoto/BabyHead/master/misc/SolderingIron.jpg' alt='Soldering Iron'/>
+        </div>
+
+      -->
+      <div class="card">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/24HF1ED3zCU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="Sing_Sing_Sing_0"></a>Sing, Sing, Sing</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="3">One of my personal favorites. The best way to describe it is as a <em>lip-dub with no words</em> for the song ‘Sing, Sing, Sing’ – originally written by Louis Prima and popularized by Benny Goodman.<br>
+          It’s all one shot. Took months of planning, but it was <em>definitely</em> worth it.</p>  
+          
+          <p class="has-line-data" data-line-start="5" data-line-end="6"><em>Roles – Producer, Co-Writer</em></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="The_Chronicles_of_Rube_Kingdom_0"></a>The Chronicles of Rube Kingdom</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="4">A very fun video with a very fun crew.<br>
+          We made the video for <a href="https://www.goodyear.com/careerday/grants.html">Goodyear’s STEM Career Day <em>Rube Goldberg Machine</em></a> Competition, and, well…<br>
+          A good chunk of the video is pure-skit; we spiced up the rest to keep it interesting.</p>
+          <p class="has-line-data" data-line-start="5" data-line-end="6"><em>Roles – Editor, Cameraman, Other Technical Roles</em></p>
+        </div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/HvlKbuyJFp8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="card">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/eJpo-IbOa_U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="How_To_Do_Electrical_Things_or_How_I_Make_Things_0"></a>How To Do Electrical Things (or: How I Make Things)</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="4">This video serves a number of purposes:<br>
+          First and foremost, it was a Scholarship submission. Secondmost, it’s a presentation and explanation of <em>BabyHead</em>, which… well, I explain it in my <a href="https://famine.potato.irish/portfolio/tech">Technical Portfolio</a><br>
+          Thirdmost, it’s an explanation of how I work through projects, big-and-small. It’s eerily similar to the process that gave birth to <code>potato.irish</code></p>
+          <p class="has-line-data" data-line-start="5" data-line-end="6"><em>Roles – Editor/Writer/Cameraman/This-Wasn’t-A-Team-Project</em></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="eprevent_0"></a>e-prevent.</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="3"><em>e-prevent</em> was a submission video for Samsung’s <a href="https://www.samsung.com/us/solvefortomorrow/">Solve-For-Tomorrow</a> Competition, presenting a vape-detecting sensor.<br>
+          Though we did not move on to become Finalists, the video still serves as an attempt to balance both the persuasive and informational aspects of a product designed to solve a pervasive issue in a community – and, most importantly, presents the culmination of our attempts to curb it.</p>
+          <p class="has-line-data" data-line-start="4" data-line-end="6">Technical issues still permeate the video, however – in part due to the fact that it was filmed entirely on a Samsung Smartphone, limiting the Camera’s dynamic range, among other things…<br>
+          We did the best with what we had.</p>
+          <p class="has-line-data" data-line-start="7" data-line-end="8"><em>Roles – Mentor, Co-Director, Editor</em></p>
+        </div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/zn3Haud_4jk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="card">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/q3gYldbNt_M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="markdown-body" style="z-index: 2;">
+          <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="GHS_Got_Talent_Show_0"></a>GHS’ Got Talent Show</h3>
+          <p class="has-line-data" data-line-start="1" data-line-end="4">In the starting phases of the COVID outbreak, towards the end of my Senior Year, Green High School’s Key Club was <em>planning</em> on keeping up their long-running, annual tradition that was the <em>Talent Show</em><br>
+          They reached out to me for help with some video/technical details, we put together an editing team, and we made the best with what we had – there were a number of technical challenges involved here, and it is by <em>far</em> the longest production I have been involved.<br>
+          Embedded above is the First of a Two-Part Show. The Second Part is available <a href="https://www.youtube.com/watch?v=IxRNFMOXTao">here</a></p>
+          <p class="has-line-data" data-line-start="5" data-line-end="6"><em>Roles – Technical Director, Editor</em></p>          
+        </div>
+      </div>
+
+      <div class="markdown-body" style="z-index: 2;">
+        <h3 class="code-line" style="text-align: center;" data-line-start=0 data-line-end=1 ><a id="The_Little_Things_0"></a>The Little Things.</h3>
+        <p class="has-line-data" style="text-align: center;" data-line-start="1" data-line-end="4">During the most <em>harrowing hours</em> of the lockdown, I found a <em>little</em>, <strong>tiny</strong> bit of extra time to devote to silly little videos.<br>
+        I am ashamed to admit that those videos reside on <a href="https://www.tiktok.com/@daemonisbae?lang=en">TikTok</a>.<br>
+        I am not ashamed to show them.</p>
+      </div>
+
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@daemonisbae/video/6806475140335996166" data-video-id="6806475140335996166" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@daemonisbae" href="https://www.tiktok.com/@daemonisbae">@daemonisbae</a> <p>I did a thing with my metal blowing thing <a title="foryoupage" target="_blank" href="https://www.tiktok.com/tag/foryoupage">##foryoupage</a> <a title="coronacation" target="_blank" href="https://www.tiktok.com/tag/coronacation">##coronacation</a> <a title="quarantine" target="_blank" href="https://www.tiktok.com/tag/quarantine">##quarantine</a> <a title="flute" target="_blank" href="https://www.tiktok.com/tag/flute">##flute</a> <a title="kirbymeme" target="_blank" href="https://www.tiktok.com/tag/kirbymeme">##kirbymeme</a> <a title="clonesquad" target="_blank" href="https://www.tiktok.com/tag/clonesquad">##clonesquad</a> <a title="meme" target="_blank" href="https://www.tiktok.com/tag/meme">##meme</a> <a title="memes" target="_blank" href="https://www.tiktok.com/tag/memes">##memes</a> <a title="cover" target="_blank" href="https://www.tiktok.com/tag/cover">##cover</a> <a title="music" target="_blank" href="https://www.tiktok.com/tag/music">##music</a> <a title="coronavirus" target="_blank" href="https://www.tiktok.com/tag/coronavirus">##coronavirus</a></p> <a target="_blank" title="♬ original sound - daemonisbae" href="https://www.tiktok.com/music/original-sound-6806447222759148293">♬ original sound - daemonisbae</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@daemonisbae/video/6808210579728190725" data-video-id="6808210579728190725" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@daemonisbae" href="https://www.tiktok.com/@daemonisbae">@daemonisbae</a> <p>daily reminder to stock up and speak up and turn up the volume <a title="foryoupage" target="_blank" href="https://www.tiktok.com/tag/foryoupage">##foryoupage</a> <a title="quarantine" target="_blank" href="https://www.tiktok.com/tag/quarantine">##quarantine</a> <a title="coronavirus" target="_blank" href="https://www.tiktok.com/tag/coronavirus">##coronavirus</a> <a title="toiletpaper" target="_blank" href="https://www.tiktok.com/tag/toiletpaper">##toiletpaper</a> <a title="tp" target="_blank" href="https://www.tiktok.com/tag/tp">##tp</a> <a title="meme" target="_blank" href="https://www.tiktok.com/tag/meme">##meme</a> <a title="clonesquad" target="_blank" href="https://www.tiktok.com/tag/clonesquad">##clonesquad</a> <a title="thx" target="_blank" href="https://www.tiktok.com/tag/thx">##thx</a> <a title="loop" target="_blank" href="https://www.tiktok.com/tag/loop">##loop</a></p> <a target="_blank" title="♬ original sound - daemonisbae" href="https://www.tiktok.com/music/original-sound-6808202300998290182">♬ original sound - daemonisbae</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@daemonisbae/video/6811896058864536838" data-video-id="6811896058864536838" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@daemonisbae" href="https://www.tiktok.com/@daemonisbae">@daemonisbae</a> <p>There is a reason why I’m not usually on-camera. This is that reason <a title="fyp" target="_blank" href="https://www.tiktok.com/tag/fyp">##fyp</a> <a title="clonesquad" target="_blank" href="https://www.tiktok.com/tag/clonesquad">##clonesquad</a> <a title="meme" target="_blank" href="https://www.tiktok.com/tag/meme">##meme</a> <a title="timetravel" target="_blank" href="https://www.tiktok.com/tag/timetravel">##timetravel</a> <a title="loop" target="_blank" href="https://www.tiktok.com/tag/loop">##loop</a> <a title="quarantine" target="_blank" href="https://www.tiktok.com/tag/quarantine">##quarantine</a> <a title="socialdistancing" target="_blank" href="https://www.tiktok.com/tag/socialdistancing">##socialdistancing</a> <a title="dammit" target="_blank" href="https://www.tiktok.com/tag/dammit">##dammit</a></p> <a target="_blank" title="♬ original sound - daemonisbae" href="https://www.tiktok.com/music/original-sound-6811889488629992198">♬ original sound - daemonisbae</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@daemonisbae/video/6815383782799969541" data-video-id="6815383782799969541" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@daemonisbae" href="https://www.tiktok.com/@daemonisbae">@daemonisbae</a> <p>i hate this but i need this <a title="fyp" target="_blank" href="https://www.tiktok.com/tag/fyp">##fyp</a> <a title="photoshop" target="_blank" href="https://www.tiktok.com/tag/photoshop">##photoshop</a> <a title="coronavirus" target="_blank" href="https://www.tiktok.com/tag/coronavirus">##coronavirus</a> <a title="meme" target="_blank" href="https://www.tiktok.com/tag/meme">##meme</a> <a title="tallyhall" target="_blank" href="https://www.tiktok.com/tag/tallyhall">##tallyhall</a> <a title="getoffyourphone" target="_blank" href="https://www.tiktok.com/tag/getoffyourphone">##getoffyourphone</a> <a title="procrastination" target="_blank" href="https://www.tiktok.com/tag/procrastination">##procrastination</a> <a title="uno" target="_blank" href="https://www.tiktok.com/tag/uno">##uno</a> <a title="unoirl" target="_blank" href="https://www.tiktok.com/tag/unoirl">##UNOirl</a> <a title="viral" target="_blank" href="https://www.tiktok.com/tag/viral">##viral</a> <a title="hahagetitbecausevirus" target="_blank" href="https://www.tiktok.com/tag/hahagetitbecausevirus">##hahagetitbecausevirus</a></p> <a target="_blank" title="♬ original sound - daemonisbae" href="https://www.tiktok.com/music/original-sound-6815372887357262598">♬ original sound - daemonisbae</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
+
+    </div>
+
+    <div class="markdown-body" style="z-index: 2;">
+      <h3 class="code-line" style="text-align: center;" data-line-start=0 data-line-end=1 >More Videos Available on <a href="https://www.youtube.com/channel/UC3q7ldw3KTBcFjTjznhObAw">YouTube</a></h3>     
+    </div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="text/javascript">
+
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+      //window.onload = () => {
+      setTimeout( () => {
+        applyToAllChildren(document.body, (elem) =>{
+          elem.style.transition = "0.3s all";
+          elem.style.opacity = 1;
+        });
+      }, 500);
+      //}
+
+    </script>
+    
+    <!-- 500px Embed Scripts -->
+    <script type='text/javascript' src='https://500px.com/embed.js'></script> -->
+  </body>
+</html>

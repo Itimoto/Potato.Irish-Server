@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>potato.</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="A one-stop shop for the professionally unprofessional on the go.">
+
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+    <link rel="icon" type="image/png" href="./images/potato-ico.png" sizes="32x32">
+  </head>
+
+  <body>    
+    <div class="center-feed-container">
+      <!-- Background + p o t a t o -->
+      <img class="bg-item" id="stars-img" src="./images/webp/stars-min.webp">
+
+      <!-- Similar to a menu; Really, just a menu -->
+      <div class="potato-launcher">
+
+        <div class="potato-container">
+          <!--
+          <button class="button-side" href="192.168.0.191/pong">pongtato</button>
+        -->
+          <img class="side-item" id="pong-img" src="./images/webp/potatoe-min.webp">
+        </div>
+        
+        <!-- 'min-width: 35vw' -->
+        <div class="potato-container">
+          <!--
+          <button class="button-side" href="192.168.0.191/">???tato</button>
+        -->
+          <img class="side-item" id="abt-img" src="./images/webp/potatoe-min.webp">
+        </div>
+        
+        <div class="potato-container">
+          <img class="side-item" id="robo-img" src="./images/webp/potatoe-min.webp">
+          <!--
+          <button class="button-side">robotato</button>
+          -->
+        </div>
+  
+      </div>
+
+      
+      <img class="fg-item" id="tater-img" src="./images/webp/potatoe-min.webp">
+
+      <!-- Call To Action Button -->
+      <button class="button-potato" style="bottom: 10%">potato</button>
+    </div>
+
+
+
+    <script type="text/javascript">
+      window.onload = () => {
+        let container    = document.getElementsByClassName('center-feed-container')[0];
+        let img_potato   = document.getElementById('tater-img');
+        let img_stars    = document.getElementById('stars-img');
+        
+        let potato_launcher = document.getElementsByClassName('potato-launcher')[0];
+
+        let imgs_potato = potato_launcher.getElementsByClassName('side-item');
+        for(let i = 0; i < imgs_potato.length; i++){
+          let currIMG = imgs_potato[i];
+
+          let sideButton = document.createElement('input');
+          sideButton.type = "button";
+          sideButton.className = "button-side";
+          sideButton.style.pointerEvents = "none"; // Button disabled by default
+          if(i == 0){
+            sideButton.value = "pongtato";
+            sideButton.link = "pong";//`${document.location.hostname}/pong`;
+            sideButton.tranz = wipeLeft;
+          }
+          else if(i == 1){
+            sideButton.value = "???tato";
+            sideButton.link = "about";//`${document.location.hostname}/about`;
+          }
+          else if(i == 2){
+            sideButton.value = "robotato";
+            sideButton.link = "rr";//`${document.location.hostname}/rr`;
+            sideButton.tranz = wipeRight;
+          }
+
+          sideButton.addEventListener('click', () => {
+            sideButton.tranz();          // Wipe into the predetermined location,
+            document.addEventListener('transitionend', () => {  //  Change URL after wipe.
+              window.location.href = sideButton.link;
+
+              window.addEventListener('pageshow', (event) => {
+                if(event.persisted) {
+                  //console.log("cached webpage");
+                  container.style.transform = "translate(0%, 0%)";
+                  //container.style.transition = "all 0.4s";
+                  //container.style.opacity = 1;
+                }
+              });
+              /*
+              container.style.transition = "all 0s";
+              container.style.opacity = 0;
+              container.style.transform = "translate(0%, 0%)";
+              */
+            }, {once: true});
+          });
+
+          currIMG.parentElement.appendChild(sideButton);
+        }
+
+        // Gonna store this for readibility
+        img_potato.defWIDTH = parseInt(window.getComputedStyle(img_potato).getPropertyValue('width'));
+        
+        let orientation;
+        (function checkOrientation() {
+          orientation = (window.innerWidth > window.innerHeight) ? 'landscape' : 'portrait';
+        })(); // Declare and execute in one fell swoop
+
+        window.onorientationchange = () => {
+          checkOrientation();
+          removeScrollButtons();
+          restoreDefaultState();
+        }        
+
+        let btn_cta = document.getElementsByClassName('button-potato')[0];
+        
+        // Nice fade-in button
+        btn_cta.style.opacity = 0;
+        setTimeout( () => {
+          btn_cta.style.opacity = 1;
+        }, 1000);
+
+        // Setup Preview Menu
+        btn_cta.onclick = btn_cta.onmouseover = showPreviewMenu;
+
+        function showPreviewMenu(){
+          btn_cta.style.opacity = 1;
+
+          btn_cta.innerHTML = "potato?";
+          btn_cta.style.background = "#c7c4b3";//"#f0edddaa";//"#8d8a7b";
+          btn_cta.style.color = "#2c282b";
+
+          // It's weird. I know. I'm sorry.
+          let newPotatoWidth = (orientation == 'landscape') ? img_potato.defWIDTH * 1.1 : img_potato.defWIDTH * 0.5;
+          img_potato.style.width = `${newPotatoWidth}px`;
+          img_stars.style.opacity = 0;
+
+          applyToAllChildren(potato_launcher, (elem) => {
+            elem.style.opacity = 1;
+            elem.style.pointerEvents = "auto";
+          });
+
+          if(orientation == 'portrait'){
+            btn_cta.style.bottom = "5%";
+            addScrollButtons(); 
+          }
+
+          document.onwheel = rotateLauncher;
+          btn_cta.onclick = restoreDefaultState;
+        }
+
+        function restoreDefaultState(){
+          btn_cta.style.opacity = 1;//0.6;
+
+          // Back to default state
+          btn_cta.innerHTML = "potato";
+          btn_cta.style.background = "transparent";
+          btn_cta.style.color = "#f0eddd";
+
+          img_potato.style.width = `${img_potato.defWIDTH}px`;
+          img_stars.style.opacity = 1;
+
+          applyToAllChildren(potato_launcher, (elem) => {
+            elem.style.opacity = 0;
+            elem.style.pointerEvents = "none";
+          });
+
+          if(orientation == 'portrait'){
+            btn_cta.style.bottom = "10%";
+            removeScrollButtons();
+          }
+        
+          btn_cta.onclick = showPreviewMenu;
+        }
+
+        let scrollCW, scrollCCW;
+
+        function addScrollButtons() {
+          if(scrollCW){
+            scrollCW.style.opacity = scrollCCW.style.opacity = 1;
+            return;
+          }
+          
+          scrollCW    = document.createElement('button');
+          scrollCCW   = document.createElement('button');
+
+          scrollCCW.innerHTML = "back";
+          scrollCW.innerHTML  = "next";
+
+          scrollCW.className  = scrollCCW.className       = "button-side";
+          scrollCW.style.width = scrollCCW.style.width    = `${window.innerWidth * .50}px`;
+          scrollCW.style.height = scrollCCW.style.height  = `${window.innerHeight * .12}px`;
+            
+          scrollCW.style.position = scrollCCW.style.position = "absolute";
+          scrollCW.style.bottom = scrollCCW.style.bottom     = `${20}%`;
+          scrollCW.style.right = scrollCCW.style.left        = "0%";
+
+          scrollCW.onclick  = () => { rotateLauncher({deltaY: 10 })};
+          scrollCCW.onclick = () => { rotateLauncher({deltaY: -10 })};
+            
+          scrollCW.style.border = scrollCCW.style.border = "thin solid";
+          scrollCW.style.boxShadow = scrollCCW.style.boxShadow = "0px";
+          scrollCW.style.opacity = scrollCCW.style.opacity   = 1;
+
+          btn_cta.parentElement.appendChild(scrollCW);
+          btn_cta.parentElement.appendChild(scrollCCW);
+        }
+
+        function removeScrollButtons() {
+          if(!scrollCW)
+            return;
+
+          scrollCW.style.opacity = scrollCCW.style.opacity = 0; 
+          //document.body.removeChild(btn_cta.scrollCW);
+          //document.body.removeChild(btn_cta.scrollCCW);
+          /*
+          let container = btn_cta.parentElement;
+          let scrollCCW = btn_cta.previousElementSibling;
+          container.removeChild(scrollCCW.previousElementSibling);
+          container.removeChild(scrollCCW);
+          */
+        }
+
+
+        let rotationRunning = false;
+
+        function rotateLauncher(event){
+          // Prevent multiple concurrent rotations (due to anim. concerns)
+          if(rotationRunning)
+            return;
+
+          rotationRunning = true;
+
+          let cw = (event.deltaY >= 0) ? true : false;
+
+          let firstChild = potato_launcher.firstElementChild;
+          let lastChild = potato_launcher.lastElementChild;
+
+          // Assume opacity already uniform:
+          let prevOpacity = firstChild.style.opacity = 1;
+          applyToAllChildren(potato_launcher, (elem) => {
+            elem.style.transition = "all 0.1s";
+            elem.style.opacity = 0;
+          });
+
+          firstChild.children[0].addEventListener('transitionend', () => {
+            // 'Actually' Rotate them...
+            if(cw){
+              firstChild.parentNode.insertBefore(firstChild, lastChild);
+              lastChild.parentNode.insertBefore(lastChild, firstChild);
+            } else {  //ccw
+              firstChild.parentNode.insertBefore(lastChild, firstChild);
+              //lastChild.parentNode.insertBefore(firstChild, lastChild);
+            }
+
+            // Apply transitions
+            potato_launcher.firstElementChild.getElementsByClassName('button-side')[0].tranz = wipeLeft;
+            potato_launcher.lastElementChild.getElementsByClassName('button-side')[0].tranz = wipeRight;
+
+            setTimeout( () => {
+              /*
+              // Apply some 'depth-of-field' to the intermediate children
+              for(let i = 0; i < potato_launcher.children.length; i++){
+                if(i == 0 || i == potato_launcher.children.length-1){
+                  potato_launcher.children[i].style.transform = "initial";
+                  potato_launcher.children[i].style.filter = "initial";
+
+                  continue;
+                }
+
+                let relPos = Math.abs( Math.floor(potato_launcher.children.length / 2) - i ); // rel. to middle
+                let prevTransform = potato_launcher.children[i].style.transform;
+                potato_launcher.children[i].style.transform = `scale(${0.5 + 0.3*Math.pow(relPos, 2)}) 
+                                                              translate(0%, ${-25 + 25*Math.pow(relPos, 2)}%)`;  // Satisfying blur
+                potato_launcher.children[i].style.filter = `blur(${3 - 1*Math.pow(relPos, 2)}px)`;  // blur - {offset/ceiling} - {sensitivity}
+              }
+              */
+
+              applyToAllChildren(potato_launcher, (elem) => {
+                elem.style.transition = "all 0.4s";
+                elem.style.opacity = 1;//prevOpacity;
+              });
+
+              lastChild.children[0].addEventListener('transitionend', () => {
+                rotationRunning = false;
+              }, {once: true});
+            }, 200);
+          
+          }, {once: true});
+        }
+
+        function wipeLeft(){
+          document.body.style.overflowX = "hidden";
+          container.style.transition = "all 0.3s ease-out";
+          container.style.transform = "translate(100%, 0%)";
+        }
+        function wipeRight(){
+          document.body.style.overflowX = "hidden";
+          container.style.transition = "all 0.3s ease-out";
+          container.style.transform = "translate(-100%, 0%)";
+        }
+
+        //---------- Service Methods ----------------
+        /*
+          Applies a Callback fn to each Child of a parent HTML/DOM object
+
+          @param {DOMelement} parentElem
+          @callback callback -- takes a child (elem) => {}
+        */
+        function applyToAllChildren(parentElem, callback, index){
+          if(index == undefined){   // Remember, 0 == false
+            index = parentElem.children.length - 1;
+          }
+
+          // Base Case ['parent' w/o children] (or) Endpt [final child]
+          if(index == 0){
+            let currChild = parentElem.children[0];
+            if(currChild.children.length > 0)             // Yes, it's a tad repetitive; however, it won't crash. hopefully.
+              applyToAllChildren(parentElem.children[0], callback);
+
+            callback(parentElem.children[0]);
+
+            return;
+          }
+
+          if(parentElem.children.length > 0){
+            let currChild = parentElem.children[index];
+            if(currChild.children.length > 0){
+              applyToAllChildren(currChild, callback);  // Apply to children's-children
+            }
+            
+            // Either all children's-children Applied-to, or Final Childless-Child:
+            callback(parentElem.children[index]);               // Apply, then traverse
+            applyToAllChildren(parentElem, callback, index - 1);
+            return;
+          }
+        }
+
+        // Create a new element
+        function setupElement(type, opts){
+          let elem = document.createElement(type);
+
+          Object.assign(elem, opts);
+
+          /*
+          Object.keys(opts).forEach( (key) => {
+            elem[key] = opts[key]; // Copy over necessary attributes
+          });
+          */
+
+          return elem;
+        }
+
+        /*
+        let floatAnim = function(elem, direction){
+          elem.style.webkitAnimation = `float 30s infinite ease-in-out ${(direction) ? direction : 'alternate'}`;
+          elem.style.animation = `float 30s infinite ease-in-out ${(direction) ? direction : 'alternate'}`;
+        }
+
+        floatAnim(img_potato, 'alternate');
+        floatAnim(img_stars, 'alternate-reverse');
+        */
+      }
+    </script>
+  </body>
+</html>
