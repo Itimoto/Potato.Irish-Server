@@ -1,7 +1,15 @@
 # Famine.Potato.Irish
-[Famine.Potato.Irish](https://famine.potato.irish) is an experimental site for all of my little *projects*, of which there are currently two: the __Roomba-Roamer__ and __Pong__.
+An [experimental site](https://famine.potato.irish) housing live projects.
 
-Here, you'll find the full* source running on the remote server.
+___
+
+<a href="https://famine.potato.irish" target="_blank">
+  <img src="https://raw.githubusercontent.com/Itimoto/Potato.Irish-Server/master/public/images/jpg/potato-landing.jpg" 
+  alt="Famine.Potato.Irish's Landing Page" />
+</a>
+
+> You'll find the full* source running on the remote server.
+> Current Projects include the [Roomba Roamer](https://famine.potato.irish/rr) and [Pong](https://famine.potato.irish/pong)
 
 *It's running HTTPS/SPDY, so the SSL Cert files are omitted. Remember -- you can generate your own with [Certbot / Let's Encrypt](https://certbot.eff.org/)!
 
