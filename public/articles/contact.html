@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contact | Dimitry</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Contact Page. Instagram: @daemonisbae">
+  
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="./articles.css"/>
+    <link rel="stylesheet" type="text/css" href="./navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="./vs-code-highlighting.css"/>
+
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+
+    <style>
+      /* Phones */
+      @media (orientation: portrait) {
+        .article-wrapper .markdown-body {
+          padding-top: 20% !important;
+        }
+        .pixels-photo img {
+          object-position: -80vw !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/about', {});">about</div>
+      </div>
+    </div>
+
+    <div class="article-wrapper">
+      <!-- Background Image -->
+      <div class='pixels-photo' style="position: relative; width: 100%; height: 100%;">
+        <img class="loading" onload="this.classList.remove('loading');" src='https://drscdn.500px.org/photo/1017895433/m%3D900/v2?sig=bcb3ac57ee98942671a2474722fbcc398f15ad1108713e109356ae2cff7e82e3' alt='Goldfish by Dimitry Melnikov on 500px.com' style="width: 100%; height: 100%; object-fit: cover; object-position: -15vw;"/>
+      </div>
+
+      <div class="markdown-body" style="position: absolute; bottom: 0%; right: 0%; width: 40%; height: 100%; padding-top: 10%; overflow: auto; filter: invert();">
+        <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="I_am_quite_uncomfortable_with_providing_my_personal_email__directly__0"></a>I'm a tad uneasy providing my email directly</h3>
+        <p class="has-line-data" data-line-start="1" data-line-end="2">And, at the same time, it’ll take quite a bit of time to set up email-forwarding through <code>potato.irish</code>. For the time being, I’ll link a few other points of contact:</p>
+        <ul>
+        <li class="has-line-data" data-line-start="2" data-line-end="3">GitHub: <a href="https://github.com/Itimoto">Itimoto</a></li>
+        <li class="has-line-data" data-line-start="3" data-line-end="4">Youtube: <a href="https://www.youtube.com/channel/UC3q7ldw3KTBcFjTjznhObAw">Dimitry M</a></li>
+        <li class="has-line-data" data-line-start="4" data-line-end="5">500px: <a href="https://500px.com/dmtrmlnk">Account</a></li>
+        <li class="has-line-data" data-line-start="5" data-line-end="6">Instagram: <a href="https://www.instagram.com/daemonisbae/">@daemonisbae</a></li>
+        </ul>  
+      </div>
+
+      
+      <div class="title-blurb" style="top: 0%; left: 0%;">
+        Contact
+      </div>
+    </div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="text/javascript">
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+   //   window.onload = () => {
+     setTimeout( () => {
+        applyToAllChildren(document.body, (elem) =>{
+          elem.style.transition = "0.3s all";
+          elem.style.opacity = 1;
+        });
+      });
+    //  }
+
+    </script>
+    
+    <!-- 500px Embed Scripts
+    <script type='text/javascript' src='https://500px.com/embed.js'></script> -->
+  </body>
+</html>

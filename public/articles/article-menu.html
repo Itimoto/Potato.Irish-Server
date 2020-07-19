@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Articles | Potato</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Articles and blogposts ranging from Programming to Other Things.">
+  
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="./articles.css"/>
+    <link rel="stylesheet" type="text/css" href="./navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="./vs-code-highlighting.css"/>
+
+    <style>
+
+      .article-launcher {
+        width: 100%;
+        height: fit-content;
+        
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+      }
+      .mini-article {
+        /*
+        min-width: 20em;
+        min-height: 10em;
+        */
+        width: 20em;
+        min-height: 10em;
+        overflow: hidden;
+
+        margin: 1.1em;
+
+        font-family: 'Josefin Sans', sans-serif;
+        color: var(--plaintext-color);
+
+        transition: 0.3s all;
+      }
+      .mini-article .title-blurb {
+        background-color: transparent;
+        position: relative;
+        text-indent: unset;
+        text-align: center;
+
+        font-size: 2em;
+        transition: inherit;
+      }
+      .mini-article .description {
+        display: flex;
+        text-align: inherit;
+        justify-content: center;
+
+        padding: 1em;
+
+        line-height: 2em;
+        transition: inherit;
+      }
+
+      .mini-article:hover {
+        min-height: 20em; /* expand */
+        /*transform: scale(1.1);*/
+
+        background-color: #6e6e6e3b;
+        --plaintext-color: #ffeece;
+
+        cursor: pointer;
+      }
+
+      @media (orientation: landscape){
+        .article-launcher .mini-article {
+          max-width: 30vw;
+          max-height: 40vw;
+        }
+      }
+
+    </style>
+
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/about', {});">about</div>
+      </div>
+    </div>
+
+    <div class="article-launcher">
+      <div class="title-blurb" style="position: relative; top: 0%; left: 0%;">
+        Articles
+      </div>
+
+      <!-- Basic Layout for each Article
+      <div class="mini-article">
+        <div class="title-blurb">
+          Article #1
+        </div>
+        <div class="description">
+          Lorem ipsum, dolor sit amet.
+        </div>
+      </div>
+      -->
+
+    </div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="text/javascript">
+
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+      window.onload = () => {
+        applyToAllChildren(document.body, (elem) =>{
+          elem.style.transition = "0.3s all";
+          elem.style.opacity = 1;
+        });
+      }
+
+      fetch("/articles/scrape").then(function(response) {
+        response.text().then(function(text) {
+          let articleListings = JSON.parse(text);
+
+          let container = document.getElementsByClassName("article-launcher")[0];
+          
+          articleListings.forEach( (listing) => {
+            // Deconstruct each unique component
+            let {pagePath, title, metaDescription, date, tags} = listing;
+
+            // Article Container
+            let miniArticle = document.createElement("div");
+            miniArticle.className = "mini-article";
+            miniArticle.onclick = () => {
+              transitionPage(`/articles/${pagePath}`, {});
+            }
+
+            // Article Title
+            let titleElem = document.createElement("div");
+            titleElem.className = "title-blurb";
+            titleElem.innerHTML = title;
+
+            // Article Description
+            let descElem = document.createElement("div");
+            descElem.className = "description";
+            descElem.innerHTML = metaDescription;
+
+            let tagsElem = document.createElement("div");
+            tagsElem.className = "description";
+            tagsElem.style.fontStyle = "italic";
+            tagsElem.style.fontFamily = "Lato";
+            tagsElem.innerHTML = `${date} &nbsp; | &nbsp; tags: ${tags}`;
+
+            miniArticle.appendChild(titleElem);
+            miniArticle.appendChild(descElem);
+            miniArticle.appendChild(tagsElem);
+
+            container.appendChild(miniArticle);
+          });
+        });
+      });
+
+    </script>
+    
+    <!-- 500px Embed Scripts
+    <script type='text/javascript' src='https://500px.com/embed.js'></script> -->
+  </body>
+</html>

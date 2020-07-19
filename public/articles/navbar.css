@@ -1,0 +1,124 @@
+:root {
+  --plaintext-color: #e7e4df;
+  --header-bg: #2c282b;
+  --title-bg: #382a1f81;
+}
+
+.header-bar {
+  /*
+  width: 80%;
+  */
+  width: 80%;
+  height: 9em;
+
+  padding: 0% 10% 0% 10%;
+  /*
+  margin-left: -10vw;
+  */
+
+  background-color: var(--header-bg);
+  border-bottom: thin var(--plaintext-color);
+
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.header-bar .header-title {
+  color: var(--plaintext-color);
+
+  font-family: 'Josefin Sans';
+  font-weight: bold;
+
+  font-size: 5.5em;
+
+  margin-bottom: -0.2em;
+  margin-top: 0.2em;
+  
+  transition: 0.3s all;
+  justify-self: center;
+
+  border-bottom: 0.01em solid transparent;
+  z-index: 1;
+/*
+  position: absolute;
+  bottom: -0.1em;
+  */
+}
+.header-bar .header-title:hover {
+  color: white;
+  border-bottom: 0.01em solid white;
+  transform: translate(0, 0.01em) scale(1.01);
+  
+  cursor: pointer;
+}
+
+.header-bar .header-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  justify-self: flex-start;
+  margin-bottom: 0.3em;
+}
+
+.header-bar .nav-title {
+  color: var(--plaintext-color);
+
+  font-family: 'Josefin Sans';
+  font-weight: bold;
+  font-size: 1.3em;
+
+  margin: 0% 0.3em 0% 0.3em;
+  bottom: -0.1em;
+  border-bottom: 0.1em solid transparent;
+
+  transition: 0.3s all;
+}
+.header-bar .nav-title:hover {
+  color: white;
+  border-bottom: solid white;
+  transform: translate(0, -0.1em) scale(1.05);
+  
+  cursor: pointer;
+}
+
+/***** Media Queries ******/
+/* Medium Devices -- Landscape tablets, etc. */
+@media only screen and (min-width: 600px) {
+    .header-bar {
+        height: 7em;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-direction: row;
+    }
+    .header-bar .header-nav{
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-around;
+
+        flex-grow: 1;
+    }
+
+    .header-bar .header-title {
+        font-size: 6em;
+        margin-bottom: -0.2em;
+        margin-right: 0.2em;
+    }
+    .header-bar .header-nav-title {
+        font-size: 2em;
+        bottom: -0.1em;
+    }
+}
+
+/* Larger Devices -- Laptops/desktops, etc. */
+@media only screen and (min-width: 992px) {
+    
+}
+
+/* Biggest; larger laptops & desktops */
+@media only screen and (min-width: 1200px) {
+
+}
