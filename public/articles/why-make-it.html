@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Why Make This?</title>
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+
+    <meta
+      name="description"
+      content="Why did I make this... thing? Why did I spend the vast, vast majority of the summer building an admittedly-useless website?">
+    <meta
+      name="author"
+      content="Dimitry M.">
+    <meta
+      name="date"
+      content="Jun. 29, 2020">
+    <meta
+      name="keywords"
+      content="blog, about, potato">
+
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="./articles.css"/>
+    <link rel="stylesheet" type="text/css" href="./navbar.css"/>
+    <link rel="stylesheet" type="text/css" href="./vs-code-highlighting.css"/>
+
+    <link rel="icon" type="image/png" href="../images/potato-ico.png" sizes="32x32">
+  </head>
+  <body>
+    <div class="header-bar">
+      <div class="header-title" onclick="transitionPage('/', {});">potato.</div>
+      <div class="header-nav">
+        <div class="nav-title" onclick="transitionPage('/articles', {});">articles</div>
+        <div class="nav-title" onclick="transitionPage('/portfolio', {});">portfolio</div>
+        <div class="nav-title" onclick="transitionPage('/about', {});">about</div>
+      </div>
+    </div>
+
+    <div class="article-header">
+      <!-- Background Image -->
+      <div class='pixels-photo'>
+        <img class="loading" onload="this.classList.remove('loading');" src='https://drscdn.500px.org/photo/192931967/m%3D900/v2?sig=02feb744cd8a313d3ef4b4e0c0861b4dc210ddb00d5cf0bbd1012c46725512d1' alt='The Path Before Sunset by Dimitry Melnikov on 500px.com' style="width: 100%; height: 100%; object-fit: cover;"/>
+      </div>
+      
+      <div class="title-blurb" style="top: 0%; left: 0%;">
+        Articles
+      </div>
+
+      <div class="author-blurb">
+        <img class="avatar" src="../images/png/avatar-min.png" alt="profile picture"/>
+      
+        <div class="bio">
+          <div class="brief-bio">
+            Dimitry <i>"Melon Father"</i> Melnikov
+          </div>
+          <div class="more-bio">
+            <br>
+            <i>Student, Electrical Enthusiast, Professional Mouth-Breather</i>
+            <br><br>
+            Try this at home, kids. But remember that I'm not responsible for it.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="title-blurb" style="position: relative;">
+      Why Make This?
+    </div>
+
+    <div class="article-wrapper">
+
+      <div class="markdown-body light-mode" style="position: relative;">
+        <h3 class="code-line" data-line-start=0 data-line-end=1 ><a id="I_am_quite_uncomfortable_with_providing_my_personal_email__directly__0"></a>I'm a tad uneasy providing my email directly</h3>
+        <p class="has-line-data" data-line-start="1" data-line-end="2">And, at the same time, it’ll take quite a bit of time to set up email-forwarding through <code>potato.irish</code>. For the time being, I’ll link a few other points of contact:</p>
+        <ul>
+        <li class="has-line-data" data-line-start="2" data-line-end="3">GitHub: <a href="https://github.com/Itimoto">Itimoto</a></li>
+        <li class="has-line-data" data-line-start="3" data-line-end="4">Youtube: <a href="https://www.youtube.com/channel/UC3q7ldw3KTBcFjTjznhObAw">Dimitry M</a></li>
+        <li class="has-line-data" data-line-start="4" data-line-end="5">500px: <a href="https://500px.com/dmtrmlnk">Account</a></li>
+        <li class="has-line-data" data-line-start="5" data-line-end="6">Instagram: <a href="https://www.instagram.com/daemonisbae/">@daemonisbae</a></li>
+        </ul>  
+      </div>
+
+      
+
+
+      
+    </div>
+
+    <div class="markdown-body">
+      
+<h3 class="code-line" data-line-start=0 data-line-end=1 style="text-align: center; font-weight: lighter;" ><a id="welcome_to_the_0"></a>welcome to the</h6>
+<h1 class="code-line" data-line-start=1 data-line-end=1 style="text-align: center; font-family: 'Josefin Sans', sans-serif; font-weight: bolder;" ><a id="Roomba_Roamer_1"></a>Roomba Roamer!</h1>
+      
+<div class="code" style="display: flex; align-items: center; justify-content: center;">
+  <button class="button-article" style="border-color: #b18c3b;" onclick="window.top.transitionPage('/', {});">Home</button>
+  <button class="button-article" style="border-color: #60994b;" onclick="closeIframe()">Let's Go!</button>
+  <button class="button-article" style="border-color: #b18c3b;" onclick="window.top.transitionPage('/about', {});">About</button>
+</div>
+
+    </div>
+
+    
+    <!-- For general page-navigation -->
+    <script type="text/javascript" src="../general.js"></script>
+    <script type="text/javascript">
+
+      // Simple fade-in-fade-out onload sorta deal.
+      applyToAllChildren(document.body, (elem) => {
+        elem.style.opacity = 0;
+      });
+
+    //   window.onload = () => {
+      setTimeout( () => {
+          applyToAllChildren(document.body, (elem) =>{
+            elem.style.transition = "0.3s all";
+            elem.style.opacity = 1;
+          });
+      });
+      //  }
+    </script>
+    
+    <!-- 500px Embed Scripts
+    <script type='text/javascript' src='https://500px.com/embed.js'></script> -->
+  </body>
+</html>

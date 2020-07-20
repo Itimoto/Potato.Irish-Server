@@ -1,7 +1,10 @@
-# SSL Certificates
-*.pem
+# SSL Certificates:
+/ssl/*.pem
 
-# Expected Layout:
+# Expected Layout for /ssl:
 #  cert.pem
 #  chain.pem
 #  privkey.pem
+
+# Space-Consuming Node_Modules:
+/node_modules
