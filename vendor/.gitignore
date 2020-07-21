@@ -1,7 +1,3 @@
-# SSL Certificates
-*.pem
-
-# Expected Layout:
-#  cert.pem
-#  chain.pem
-#  privkey.pem
+/npm-debug.log
+/node_modules
+/disc
