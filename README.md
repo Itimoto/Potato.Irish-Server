@@ -74,6 +74,83 @@ node roomba-pi.js
 And you're silver.
 
 
+## Hol' Up: What if You Screwed Up Along The Way And Needed to Reset Potato.Irish From Scratch?
+*Well then*, you'd be right where I just was after *accidentally publishing my SSL Credidentials*. Suffice it to say that I made a few mistakes, and hope not to make them again. If I do, or *you do*, or *whatever else*, here's how to build Potato.Irish up *from scratch on __CentOS 6.7__* working with *Dynadot* (as of July 2020):
+
+1. Get your Domain Set Up.
+  - Buy your domain.
+    - `potato.irish`
+  - Buy some VPS hosting for *root access to the system*, then pick an OS.
+    - I picked out CentOS 6.7, as stated.
+    - Take note of your VPS's IP in your confirmation email.
+    - `IP: ABC.DE.FG.HI`
+  - Route your Domain Traffic to your VPS
+    - (i.e. Your Domain, hosted (in this example) on Dynadot's Nameservers, needs to redirect Traffic to your 'Virtual Private Server', on which the Website's hosted) (i.e. You have a name, but you don't have a body. It's time to link them up.)
+    - Login on Dynadot. Go to *My Domains >> Manage Domains* and select the Tickbox next to your Domain
+    - Hit *Bulk Action >> DNS Settings*
+    - Replace `Dynadot Parking` with `Dynadot DNS`
+    - Now, under 'Domain Record (required)', setup your 'A' record.
+    - Remember that 'IP Address' from before? Put it in here.
+      - `Record Type: A | IP Address: ABC.DE.FG.HI`
+    - If you're like me and wanna mess around with the subdomains, repeat it for the 'Subdomain Records'
+      - `Subdomain: famine | Record Type: A | IP Address: ABC.DE.FG.HI`
+    - Hit 'Save DNS'
+2. Set up your VPS.
+  - SSH into your VPS with the credidentials provided in your confirmation email.
+    - `ssh root@potato.irish`
+  - [Create a Second User with Sudoer privileges.](https://phoenixnap.com/kb/how-to-create-add-sudo-user-centos)
+    - Doing *everything* as root is... a bit risky.
+      - `adduser your-name-here`
+      - `passwd your-name-here`, then input your new password
+    - Now, you'll need to check if the sudoers/wheel group is enabled on your system. It wasn't for me, so:
+      - `vi /etc/sudoers`
+        - (If you're uncomfortable with `vi` as a text editor, you can *always* install `nano` with `yum install nano`, then replace `vi` with `nano`)
+    - Make sure the file [contains the following line](https://developers.redhat.com/blog/2018/08/15/how-to-enable-sudo-on-rhel/)
+      - `%wheel ALL=(ALL) ALL`
+    - If there's a `#` in front of it, it's *commented out*. Sudoers won't be able to sudo. Remove the `#` to enable it.
+    - Now, you'll want to add the user to the Wheel group:
+      - `usermod -aG wheel your-name-here`
+    - Switch to the New User and Verify the Privileges:
+      - `su - your-name-here`
+      - `sudo ls -la /root`
+    - If everything's going smoothly, move along!
+  - [Install NodeJS and NPM](https://linuxize.com/post/how-to-install-node-js-on-centos-7/)
+    - "Add the NodeSource yum repository"
+      - 'NodeJS' isn't (as far as I can tell) part of the inbuilt YUM repositories. (Your server doesn't know where to download it)
+      - `curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -`
+    - "Install Node.js and NPM"
+      - `sudo yum install nodejs`
+    - Verify the Installation
+      - `node --version` => `v10.19.0`
+      - `npm --version`  => `6.13.4`
+  - [Install Git](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-centos-7)
+    - Install it through yum
+      - `sudo yum install git`
+    - Verify the Installation
+      - `git --version` => `git version 1.7.1`
+    - (NOTE: If `git clone` throws a `error: while accessing https://${your-git-username-here}@github.com/${your-repo-here} ... fatal: HTTP request failed`, [try this out](https://stackoverflow.com/questions/53625669/git-pull-info-refs-http-request-failed))
+      - `sudo yum update -y nss curl libcurl`
+  - [Setup Your Firewalls](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-basic-iptables-firewall-on-centos-6)
+    - By default, Dynadot's VPS's have a Firewall on most ports -- including ports *80* (HTTP traffic) and *443* (HTTPS traffic). Because of that, any websites you'd want to run on it won't be accessible to the outside world.
+    - A quick 'fix' would be to *completely disable the iptables*. Of course, don't do that. That's risky. Don't. Just Don—
+      - `sudo service iptables stop` (don't do this)
+      - I'm not responsible for any damages you may incur.
+    - Instead, set up your Iptables properly. We're going to want to allow SSH (port 22) and Web Traffic (port 80 - HTTP, port 443 - HTTPS)
+    - I'd recommend a gander through the [linked guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-basic-iptables-firewall-on-centos-6) for a more cohesive grasp of Iptable Rules, but if you just want to get up and running, open up Web Traffic only:
+      - `sudo iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT`
+      - `sudo iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT`
+  - [Register for an SSL Certificate](https://certbot.eff.org/lets-encrypt/centos6-other.html)
+    - As stated far above, you've got plenty of choices. I used [Let's Encrypt with Certbot](https://certbot.eff.org/lets-encrypt/centos6-other.html)
+    - Install Certbot:
+      - `sudo yum install wget`
+      - `sudo mv certbot-auto /usr/local/bin/certbot-auto`
+      - `sudo chown root /usr/local/bin/certbot-auto`
+      - `sudo chmod 0755 /usr/local/bin/certbot-auto`
+    - Run Certbot:
+      - `sudo /usr/local/bin/certbot-auto certonly --standalone`
+    - Follow the instructions
+  
+
 ## Credit Where Credit Is Due.
 This project would not have been possible without other, external contributions. Though I'm unsure as to whether to cite them as *contributors* or *vendors*, here lie the external libraries used:
 
