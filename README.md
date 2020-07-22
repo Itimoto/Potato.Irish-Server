@@ -13,7 +13,7 @@ ___
 
 *It's running HTTPS/SPDY, so the SSL Cert files are omitted. Remember -- you can generate your own with [Certbot / Let's Encrypt](https://certbot.eff.org/)!
 
-
+---
 ## Neat. Time to get it Up-And-Running. How?
 Grab your favorite Terminal/Console, install Node.JS/NPM, then
 clone into this Repository from the location of your choice.
@@ -47,7 +47,7 @@ node server.js
 ```
 And you're golden!
 
-
+---
 ## But what about '\_pi-specific'?
 That's for the Roomba Roamer. There will be more information available on the Project Page soon, but if you'd like to stream Video, here're some basic instructions:
 
@@ -73,11 +73,11 @@ node roomba-pi.js
 ```
 And you're silver.
 
-
+---
 ## Hol' Up: What if You Screwed Up Along The Way And Needed to Reset Potato.Irish From Scratch?
 *Well then*, you'd be right where I just was after *accidentally publishing my SSL Credidentials*. Suffice it to say that I made a few mistakes, and hope not to make them again. If I do, or *you do*, or *whatever else*, here's how to build Potato.Irish up *from scratch on __CentOS 6.7__* working with *Dynadot* (as of July 2020):
 
-1. __Get your Domain Set Up.__
+### 1. __Get your Domain Set Up.__
   - Buy your domain.
     - `potato.irish`
   - Buy some VPS hosting for *root access to the system*, then pick an OS.
@@ -95,7 +95,7 @@ And you're silver.
     - If you're like me and wanna mess around with the subdomains, repeat it for the 'Subdomain Records'
       - `Subdomain: famine | Record Type: A | IP Address: ABC.DE.FG.HI`
     - Hit 'Save DNS'
-2. __Set up your VPS.__
+### 2. __Set up your VPS.__
   - SSH into your VPS with the credidentials provided in your confirmation email.
     - `ssh root@potato.irish`
   - [Create a Second User with Sudoer privileges.](https://phoenixnap.com/kb/how-to-create-add-sudo-user-centos)
@@ -151,7 +151,7 @@ And you're silver.
     - Follow the instructions. We won't get into Wildcard Certificates -- just do a single domain/subdomain for now:
       - `"Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'to cancel):" famine.potato.irish`
     - Nice.
-3. __Implement the Live Repository__
+### 3. __Implement the Live Repository__
   - Go to the Directory of your Choice
     - `cd ~` 
   - Clone the Repository
@@ -175,10 +175,10 @@ And you're silver.
       - `sudo ln -s /etc/letsencrypt/live/famine.potato.irish/privkey.pem privkey.pem`
       - `sudo ln -s /etc/letsencrypt/live/famine.potato.irish/chain.pem chain.pem`
     - *Remember: /etc/letsencrypt/live/your-registered-domain-here/cert.pem or privkey.pem, etc.
-4. __Start the Server__
+### 4. __Start the Server__
   - `sudo node server.js`
     - And you're bronze.
-5. __OR: Run the Server in the Background__
+### 4.5. __OR: Run the Server in the Background__
   - You'll need a 'Supervisor' which'll run your Node.js apps in the background. Here, we'll use PM2.
   - [We'll install it with NPM](https://www.tecmint.com/install-pm2-to-run-nodejs-apps-on-linux-server/):
     - `sudo npm i -g pm2`
@@ -187,7 +187,7 @@ And you're silver.
   - You can monitor your Console output with:
     - `sudo pm2 monit` or `sudo pm2 monit 0`, if `server.js` is the only active process
 
-
+---
 ### __I'm having a few issues. How'd you deal with 'em?__
 #### Running `git clone` throws an error
 This one?
@@ -231,7 +231,7 @@ The only issue being, however, needing to reintegrate the Server *one more time 
 
 (If it's any help, checking the CentOS version (with `cat /etc/centos-release`, if I remember correctly) returned `CentOS 6.10 (Final)` instead of `CentOS 6.7 (Final)`)
 
-
+---
 ## Credit Where Credit Is Due.
 This project would not have been possible without other, external contributions. Though I'm unsure as to whether to cite them as *contributors* or *vendors*, here lie the external libraries used:
 
