@@ -187,7 +187,7 @@ This one?
 error: while accessing https://${your-git-username-here}@github.com/${your-repo-here}
 fatal: HTTP request failed`
 ```
-[Try this out:](https://stackoverflow.com/questions/53625669/git-pull-info-refs-http-request-failed))
+[Try this out:](https://stackoverflow.com/questions/53625669/git-pull-info-refs-http-request-failed)
 ```
 sudo yum update -y nss curl libcurl
 ```
