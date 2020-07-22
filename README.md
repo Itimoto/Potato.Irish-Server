@@ -77,7 +77,7 @@ And you're silver.
 ## Hol' Up: What if You Screwed Up Along The Way And Needed to Reset Potato.Irish From Scratch?
 *Well then*, you'd be right where I just was after *accidentally publishing my SSL Credidentials*. Suffice it to say that I made a few mistakes, and hope not to make them again. If I do, or *you do*, or *whatever else*, here's how to build Potato.Irish up *from scratch on __CentOS 6.7__* working with *Dynadot* (as of July 2020):
 
-1. Get your Domain Set Up.
+1. __Get your Domain Set Up.__
   - Buy your domain.
     - `potato.irish`
   - Buy some VPS hosting for *root access to the system*, then pick an OS.
@@ -95,7 +95,7 @@ And you're silver.
     - If you're like me and wanna mess around with the subdomains, repeat it for the 'Subdomain Records'
       - `Subdomain: famine | Record Type: A | IP Address: ABC.DE.FG.HI`
     - Hit 'Save DNS'
-2. Set up your VPS.
+2. __Set up your VPS.__
   - SSH into your VPS with the credidentials provided in your confirmation email.
     - `ssh root@potato.irish`
   - [Create a Second User with Sudoer privileges.](https://phoenixnap.com/kb/how-to-create-add-sudo-user-centos)
@@ -148,8 +148,79 @@ And you're silver.
       - `sudo chmod 0755 /usr/local/bin/certbot-auto`
     - Run Certbot:
       - `sudo /usr/local/bin/certbot-auto certonly --standalone`
-    - Follow the instructions
-  
+    - Follow the instructions. We won't get into Wildcard Certificates -- just do a single domain/subdomain for now:
+      - `"Please enter in your domain name(s) (comma and/or space separated)  (Enter 'c'to cancel):" famine.potato.irish`
+    - Nice.
+3. __Implement the Live Repository__
+  - Go to the Directory of your Choice
+    - `cd ~` 
+  - Clone the Repository
+    - `git clone https://github.com/Itimoto/Famine.Potato-Server`
+  - Install the Dependecies
+    - `cd Famine.Potato-Server`
+    - `npm install`
+    - Then, for the h264 Player:
+    - `cd vendor`
+    - `npm install`
+  - Integrate your SSL Certificates
+    - Move to your SSL Directory
+      - `cd ../ssl`
+    - Two Options:
+    - 1) Copy*
+      - `sudo cp /etc/letsencrypt/live/famine.potato.irish/cert.pem cert.pem`
+      - `sudo cp /etc/letsencrypt/live/famine.potato.irish/privkey.pem privkey.pem`
+      - `sudo cp /etc/letsencrypt/live/famine.potato.irish/chain.pem chain.pem`
+    - or, 2) Set up a Simlink to the Original Files*
+      - `sudo ln -s /etc/letsencrypt/live/famine.potato.irish/cert.pem cert.pem`
+      - `sudo ln -s /etc/letsencrypt/live/famine.potato.irish/privkey.pem privkey.pem`
+      - `sudo ln -s /etc/letsencrypt/live/famine.potato.irish/chain.pem chain.pem`
+    - *Remember: /etc/letsencrypt/live/your-registered-domain-here/cert.pem or privkey.pem, etc.
+4. __Start the Server__
+  - `sudo node server.js`
+  - And you're bronze.
+
+### __I'm having a few issues. How'd you deal with 'em?__
+#### Running `git clone` throws an error
+This one?
+```
+error: while accessing https://${your-git-username-here}@github.com/${your-repo-here}
+fatal: HTTP request failed`
+```
+[Try this out:](https://stackoverflow.com/questions/53625669/git-pull-info-refs-http-request-failed))
+```
+sudo yum update -y nss curl libcurl
+```
+
+### Running `git push` throws an error
+This one?
+```
+error: The requested URL returned error: 403 Forbidden while accessing https://github.com/Itimoto/Potato.Irish-Server/info/refs
+
+fatal: HTTP request failed
+```
+[Check your git config:](https://www.a2hosting.com/kb/developer-corner/version-control-systems1/403-forbidden-error-message-when-you-try-to-push-to-a-github-repository)
+```
+git config -l | grep url
+```
+If it outputs something the lines of:
+> `remote.origin.url=https://github.com/github-username/github-repository-name.git`
+...["You'll need to add your GitHub username to the *github.com* portion of the URL:"](remote.origin.url=https://github.com/github-username/github-repository-name.git)
+```
+git remote set-url origin "https://github-username@github.com/github-username/github-repository-name.git"
+```
+
+#### Trying to run `/certbot-auto` throws an error
+This one?
+```
+...
+URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:852)>
+```
+I could never *really* figure out how to fix it -- it seems to be an OS-related issue. Rather, reinstalling CentOS 6.7 seemed to fix it.
+
+The only issue being, however, needing to reintegrate the Server *one more time all over again*
+
+(If it's any help, checking the CentOS version (with `cat /etc/centos-release`, if I remember correctly) returned `CentOS 6.10 (final)`)
+
 
 ## Credit Where Credit Is Due.
 This project would not have been possible without other, external contributions. Though I'm unsure as to whether to cite them as *contributors* or *vendors*, here lie the external libraries used:
@@ -157,3 +228,4 @@ This project would not have been possible without other, external contributions.
 - *131's [H264 Live Player](https://github.com/131/h264-live-player)*
 - *PimTerry's [H264 Header-Data Capture Script](https://github.com/pimterry/raspivid-stream/blob/master/index.js)*
 - *ey3ball's [Leaky Buffer, coupled with neat exploration and explanation of Stream Backpressuring](http://ey3ball.github.io/)*
+- And the remaining *remarkably helpful* tutorials linked to when applicable.
