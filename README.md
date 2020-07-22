@@ -178,6 +178,13 @@ And you're silver.
 4. __Start the Server__
   - `sudo node server.js`
     - And you're bronze.
+5. __Run the Server in the Background__
+  - You'll need a 'Supervisor' which'll run your Node.js apps in the background. Here, we'll use PM2.
+    - `sudo npm i -g pm2`
+  - Once you've got it, navigate to your Server directory and start the server with:
+    - `sudo pm2 start server.js`
+  - You can monitor your Console output with:
+    - `sudo pm2 monit` or `sudo pm2 monit 0` if `server.js` is the only active process
 
 
 ### __I'm having a few issues. How'd you deal with 'em?__
