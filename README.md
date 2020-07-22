@@ -9,7 +9,7 @@ ___
 </a>
 
 > You'll find the full* source running on the remote server.
-> Current Projects include the [Roomba Roamer](https://famine.potato.irish/rr) and [Pong](https://famine.potato.irish/pong)
+> Current Projects include the [Roomba Roamer](https://github.com/Itimoto/Roomba-Roamer) and [Pong](https://github.com/Itimoto/Pong)
 
 *It's running HTTPS/SPDY, so the SSL Cert files are omitted. Remember -- you can generate your own with [Certbot / Let's Encrypt](https://certbot.eff.org/)!
 
