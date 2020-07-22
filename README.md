@@ -180,6 +180,7 @@ And you're silver.
     - And you're bronze.
 5. __Run the Server in the Background__
   - You'll need a 'Supervisor' which'll run your Node.js apps in the background. Here, we'll use PM2.
+  - We'll install it with NPM:
     - `sudo npm i -g pm2`
   - Once you've got it, navigate to your Server directory and start the server with:
     - `sudo pm2 start server.js`
