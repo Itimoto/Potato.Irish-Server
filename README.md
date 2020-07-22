@@ -200,7 +200,7 @@ fatal: HTTP request failed`
 sudo yum update -y nss curl libcurl
 ```
 
-### Running `git push` throws an error
+#### Running `git push` throws an error
 This one?
 ```
 error: The requested URL returned error: 403 Forbidden while accessing https://github.com/Itimoto/Potato.Irish-Server/info/refs
