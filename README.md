@@ -177,7 +177,8 @@ And you're silver.
     - *Remember: /etc/letsencrypt/live/your-registered-domain-here/cert.pem or privkey.pem, etc.
 4. __Start the Server__
   - `sudo node server.js`
-  - And you're bronze.
+    - And you're bronze.
+
 
 ### __I'm having a few issues. How'd you deal with 'em?__
 #### Running `git clone` throws an error
@@ -202,12 +203,13 @@ fatal: HTTP request failed
 ```
 git config -l | grep url
 ```
-If it outputs something the lines of:
+If it outputs something along the lines of:
 > `remote.origin.url=https://github.com/github-username/github-repository-name.git`
 ...["You'll need to add your GitHub username to the *github.com* portion of the URL:"](remote.origin.url=https://github.com/github-username/github-repository-name.git)
 ```
 git remote set-url origin "https://github-username@github.com/github-username/github-repository-name.git"
 ```
+
 
 #### Trying to run `/certbot-auto` throws an error
 This one?
@@ -215,11 +217,11 @@ This one?
 ...
 URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:852)>
 ```
-I could never *really* figure out how to fix it -- it seems to be an OS-related issue. Rather, reinstalling CentOS 6.7 seemed to fix it.
+Well, I could never *really* figure out how to fix it -- it seems to be an OS-related issue. Rather, reinstalling CentOS 6.7 seemed to fix it.
 
 The only issue being, however, needing to reintegrate the Server *one more time all over again*
 
-(If it's any help, checking the CentOS version (with `cat /etc/centos-release`, if I remember correctly) returned `CentOS 6.10 (final)`)
+(If it's any help, checking the CentOS version (with `cat /etc/centos-release`, if I remember correctly) returned `CentOS 6.10 (Final)` instead of `CentOS 6.7 (Final)`)
 
 
 ## Credit Where Credit Is Due.
