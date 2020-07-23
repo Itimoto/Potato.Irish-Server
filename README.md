@@ -232,6 +232,21 @@ The only issue being, however, needing to reintegrate the Server *one more time 
 (If it's any help, checking the CentOS version (with `cat /etc/centos-release`, if I remember correctly) returned `CentOS 6.10 (Final)` instead of `CentOS 6.7 (Final)`)
 
 ---
+## Commentary
+
+Truthfully, the site wasn't exactly... meant to be much more than the Potato Launcher -- y'know, with `Pongtato`, `Robotato`, `???tato`, etc. But it came to solve a couple of long-standing goals of mine: 
+1) To design a full, responsive website, 
+2) To feature a portfolio, and 
+3) To have an outlet for my projects. Almost a blog, really.
+
+#### Challenges
+I didn't know much HTML. Or CSS. Or browser-based Javascript. Boy, was *that* a major hurdle. On top of that, utilizing 'mobile-first' philosophies -- with smaller images, smaller loading times, and attempts to keep the site as speedy as possible -- played the most significant role.
+
+The same thing goes for the 'Articles' page, which is my first 'web scraper'. But not quite. Sort-of.
+
+But I did build the site from scratch, unlike prior tries. Sure, there *was* some script-kiddie-ing involved, but only for learning purposes.
+
+---
 ## Credit Where Credit Is Due.
 This project would not have been possible without other, external contributions. Though I'm unsure as to whether to cite them as *contributors* or *vendors*, here lie the external libraries used:
 
