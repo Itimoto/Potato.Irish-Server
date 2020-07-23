@@ -94,7 +94,7 @@
         align-items: flex-end;
         flex-direction: row;
     }
-    .header-bar .header-nav{
+    .header-bar .header-nav {
         flex-direction: row;
         align-items: flex-start;
         justify-content: space-around;
